@@ -4,7 +4,7 @@ By **VJ Ranga**
 
 Adds a customizable **"Order via WhatsApp"** button to your WooCommerce product pages, allowing customers to send orders details directly to your WhatsApp number.
 
-![WhatsApp Order Button](assets/images/WhatsApp-Order-Button-g.png)
+![WhatsApp Order Button](assets/images/WhatsApp-Order-Button-ss.png)
 
 ## 🚀 Features
 
