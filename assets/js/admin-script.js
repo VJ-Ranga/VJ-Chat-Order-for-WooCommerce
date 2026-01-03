@@ -3,8 +3,22 @@ jQuery(document).ready(function ($) {
     // ==========================================
     // Tab Switching Logic
     // ==========================================
+    // Check for saved tab
+    var activeTab = localStorage.getItem('wob_active_tab') || 'general';
+    $('.wob-tab-btn[data-tab="' + activeTab + '"]').addClass('active');
+    $('#tab-' + activeTab).addClass('active');
+
+    // Handle initial state if no active tab found (fallback)
+    if (!$('.wob-tab-btn.active').length) {
+        $('.wob-tab-btn[data-tab="general"]').addClass('active');
+        $('#tab-general').addClass('active');
+    }
+
     $('.wob-tab-btn').on('click', function () {
         var tabId = $(this).data('tab');
+
+        // Save to localStorage
+        localStorage.setItem('wob_active_tab', tabId);
 
         // Update button states
         $('.wob-tab-btn').removeClass('active');
