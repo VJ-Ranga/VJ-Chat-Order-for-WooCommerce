@@ -12,7 +12,7 @@
     $(document).ready(function () {
         var whatsappButton = $('#whatsapp-order-btn');
 
-        if (!whatsappButton.length) {
+        if (!whatsappButton.length || typeof wobData === 'undefined') {
             return;
         }
 

@@ -97,7 +97,7 @@ register_activation_hook(__FILE__, 'wob_activate');
  */
 function wob_add_settings_link($links)
 {
-    $settings_link = '<a href="options-general.php?page=whatsapp-order-button">' . __('Settings', 'whatsapp-order-button') . '</a>';
+    $settings_link = '<a href="options-general.php?page=wob-settings">' . __('Settings', 'whatsapp-order-button') . '</a>';
     array_unshift($links, $settings_link);
     return $links;
 }

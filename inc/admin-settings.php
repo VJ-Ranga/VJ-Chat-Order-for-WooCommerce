@@ -321,7 +321,7 @@ function wob_icon_url_field_callback()
             class="button wob-reset-icon-btn"><?php _e('Reset to Default', 'whatsapp-order-button'); ?></button>
     </div>
     <div class="wob-icon-preview" style="margin-top: 10px;">
-        <img src="<?php echo esc_url($display_url); ?>" alt="Icon Preview"
+        <img src="<?php echo esc_url($display_url); ?>" alt="Icon Preview" loading="lazy"
             style="max-width: 40px; max-height: 40px; background: #25D366; padding: 8px; border-radius: 8px;">
     </div>
     <p class="description">
