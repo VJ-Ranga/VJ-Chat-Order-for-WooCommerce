@@ -5,7 +5,7 @@ Tags: woocommerce, whatsapp, order, button, ecommerce
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,6 +100,9 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 6. Example generated WhatsApp message
 
 == Changelog ==
+
+= 1.3.1 =
+* Performance: Optimized uninstall process with direct SQL deletion to prevent timeouts on large sites.
 
 = 1.3.0 =
 * Feature: Added helpful "Pro Tip" box for using emojis in message labels
