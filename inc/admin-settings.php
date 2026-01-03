@@ -94,7 +94,7 @@ function wob_register_settings_init()
 
     register_setting('wob_settings_group', 'wob_icon_url', array(
         'sanitize_callback' => 'esc_url_raw',
-        'default' => 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg'
+        'default' => ''
     ));
 
     register_setting('wob_settings_group', 'wob_intro_message', array(
@@ -104,17 +104,17 @@ function wob_register_settings_init()
 
     // Design Settings
     register_setting('wob_settings_group', 'wob_bg_color', array(
-        'sanitize_callback' => 'sanitize_hex_color',
+        'sanitize_callback' => 'wob_sanitize_hex_color',
         'default' => '#25D366'
     ));
 
     register_setting('wob_settings_group', 'wob_text_color', array(
-        'sanitize_callback' => 'sanitize_hex_color',
+        'sanitize_callback' => 'wob_sanitize_hex_color',
         'default' => '#ffffff'
     ));
 
     register_setting('wob_settings_group', 'wob_hover_color', array(
-        'sanitize_callback' => 'sanitize_hex_color',
+        'sanitize_callback' => 'wob_sanitize_hex_color',
         'default' => '#1ebe5d'
     ));
 

@@ -1,3 +1,4 @@
+<?php
 /**
  * Plugin Name: WhatsApp Order Button for WooCommerce
  * Plugin URI: https://github.com/VJ-Ranga/whatsapp-order-button
