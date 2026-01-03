@@ -543,6 +543,33 @@ function wob_render_settings_page()
                             style="margin: 30px 0 20px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
                             <?php esc_html_e('Message Labels & Icons', 'whatsapp-order-button'); ?>
                         </h3>
+
+                        <div
+                            style="background: #f0f6fc; border: 1px solid #e0e0e0; border-left: 4px solid #25D366; padding: 12px 16px; border-radius: 4px; margin-bottom: 24px;">
+                            <p style="margin: 0; font-size: 13px; color: #1d2327;">
+                                <strong>💡 <?php esc_html_e('Pro Tip:', 'whatsapp-order-button'); ?></strong>
+                                <?php esc_html_e('Use emojis to make your message stand out!', 'whatsapp-order-button'); ?>
+                            </p>
+                            <p style="margin: 8px 0 0; font-size: 12px; color: #646970;">
+                                • <strong>Windows:</strong> <?php esc_html_e('Press', 'whatsapp-order-button'); ?> <code
+                                    style="background: #fff; padding: 2px 6px; border-radius: 3px; border: 1px solid #ccc;">Win</code>
+                                + <code
+                                    style="background: #fff; padding: 2px 6px; border-radius: 3px; border: 1px solid #ccc;">.</code>
+                                <?php esc_html_e('to open the emoji picker.', 'whatsapp-order-button'); ?><br>
+                                • <strong>Mac:</strong> <?php esc_html_e('Press', 'whatsapp-order-button'); ?> <code
+                                    style="background: #fff; padding: 2px 6px; border-radius: 3px; border: 1px solid #ccc;">Cmd</code>
+                                + <code
+                                    style="background: #fff; padding: 2px 6px; border-radius: 3px; border: 1px solid #ccc;">Ctrl</code>
+                                + <code
+                                    style="background: #fff; padding: 2px 6px; border-radius: 3px; border: 1px solid #ccc;">Space</code><br>
+                                • <strong>Web:</strong> <?php printf(
+                                    /* translators: %s: Emojipedia URL */
+                                    esc_html__('Visit %s to copy and paste emojis.', 'whatsapp-order-button'),
+                                    '<a href="https://emojipedia.org/" target="_blank" style="text-decoration: none; color: #2271b1;">Emojipedia.org <span style="font-size: 10px;">↗</span></a>'
+                                ); ?>
+                            </p>
+                        </div>
+
                         <p class="description" style="margin-bottom: 20px;">
                             <?php esc_html_e('Customize the text and icons used in the WhatsApp message.', 'whatsapp-order-button'); ?>
                         </p>

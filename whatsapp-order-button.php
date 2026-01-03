@@ -3,7 +3,7 @@
  * Plugin Name: WhatsApp Order Button
  * Plugin URI: https://example.com/whatsapp-order-button
  * Description: Adds a WhatsApp order button to WooCommerce product pages with customizable settings.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: VJ Ranga
  * Author URI: https://example.com
  * Text Domain: whatsapp-order-button
@@ -18,7 +18,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('WOB_VERSION', '1.2.0');
+define('WOB_VERSION', '1.3.0');
 define('WOB_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WOB_PLUGIN_URL', plugin_dir_url(__FILE__));
 
