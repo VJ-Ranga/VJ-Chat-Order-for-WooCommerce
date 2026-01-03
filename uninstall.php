@@ -48,8 +48,6 @@ foreach ($wob_options as $option) {
     delete_option($option);
 }
 
-// Delete user meta (active tab preference)
-$users = get_users(array('fields' => 'ID'));
-foreach ($users as $user_id) {
-    delete_user_meta($user_id, 'wob_active_tab');
-}
+// Delete user meta (active tab preference) - Using SQL for performance on large sites
+global $wpdb;
+$wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key = 'wob_active_tab'");
