@@ -258,7 +258,7 @@ function wob_register_settings_init()
         'wob_design_section'
     );
 }
-add_action('admin_init', 'wob_register_settings');
+add_action('admin_init', 'wob_register_settings_init');
 
 /**
  * Section callbacks
