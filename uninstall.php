@@ -12,6 +12,11 @@ if (!defined('WP_UNINSTALL_PLUGIN')) {
     exit;
 }
 
+// Additional security check
+if (!current_user_can('activate_plugins')) {
+    exit;
+}
+
 $wob_options = array(
     'wob_phone_number',
     'wob_button_text',

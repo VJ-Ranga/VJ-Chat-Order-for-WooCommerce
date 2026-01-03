@@ -5,9 +5,25 @@
  * @package WhatsApp_Order_Button
  */
 
-// Prevent direct access
 if (!defined('ABSPATH')) {
     exit;
+}
+
+/**
+ * Sanitize hex color
+ */
+function wob_sanitize_hex_color($color)
+{
+    if ('' === $color) {
+        return '';
+    }
+
+    // 3 or 6 hex digits, or the empty string.
+    if (preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color)) {
+        return $color;
+    }
+
+    return '#25D366'; // Default fallback
 }
 
 /**
@@ -136,19 +152,19 @@ function wob_register_settings_init()
     $message_settings = array(
         'wob_label_product' => __('Product', 'whatsapp-order-button'),
         'wob_icon_product' => '🛒',
-        'wob_label_quantity' => __('Quantity', 'whatsapp-order-button'),
+        'wob_label_quantity' => _x('Quantity', 'WhatsApp message label', 'whatsapp-order-button'),
         'wob_icon_quantity' => '🔢',
-        'wob_label_price' => __('Price', 'whatsapp-order-button'),
+        'wob_label_price' => _x('Price', 'WhatsApp message label', 'whatsapp-order-button'),
         'wob_icon_price' => '💰',
-        'wob_label_total' => __('Total', 'whatsapp-order-button'),
+        'wob_label_total' => _x('Total', 'WhatsApp message label', 'whatsapp-order-button'),
         'wob_icon_total' => '💵',
-        'wob_label_link' => __('Link', 'whatsapp-order-button'),
+        'wob_label_link' => _x('Link', 'WhatsApp message label', 'whatsapp-order-button'),
         'wob_icon_link' => '🔗'
     );
 
     foreach ($message_settings as $key => $default) {
         register_setting('wob_settings_group', $key, array(
-            'sanitize_callback' => 'sanitize_text_field',
+            'sanitize_callback' => 'sanitize_text_field', // Assuming icons and labels are text fields
             'default' => $default
         ));
     }
@@ -451,6 +467,11 @@ function wob_render_settings_page()
 {
     if (!current_user_can('manage_options')) {
         return;
+    }
+
+    // Check if form was submitted
+    if (isset($_POST['submit'])) {
+        check_admin_referer('wob_settings_group-options');
     }
 
     // Get current values for preview

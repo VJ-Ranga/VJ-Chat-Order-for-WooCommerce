@@ -198,24 +198,24 @@ function wob_enqueue_assets()
 
     // Localize script with settings and product data
     wp_localize_script('wob-script', 'wobData', array(
-        'phoneNumber' => get_option('wob_phone_number', '947000000000'),
-        'introMessage' => get_option('wob_intro_message', __('Hello, I\'d like to place an order:', 'whatsapp-order-button')),
-        'productName' => $product_name,
-        'productUrl' => $product_url,
-        'currencySymbol' => $currency_symbol,
+        'phoneNumber' => esc_js(get_option('wob_phone_number', '947000000000')),
+        'introMessage' => esc_js(get_option('wob_intro_message', __('Hello, I\'d like to place an order:', 'whatsapp-order-button'))),
+        'productName' => esc_js($product_name),
+        'productUrl' => esc_url($product_url),
+        'currencySymbol' => esc_js($currency_symbol),
         'labels' => array(
-            'product' => get_option('wob_label_product', __('Product', 'whatsapp-order-button')),
-            'quantity' => get_option('wob_label_quantity', __('Quantity', 'whatsapp-order-button')),
-            'price' => get_option('wob_label_price', __('Price', 'whatsapp-order-button')),
-            'total' => get_option('wob_label_total', __('Total', 'whatsapp-order-button')),
-            'link' => get_option('wob_label_link', __('Link', 'whatsapp-order-button')),
+            'product' => esc_js(get_option('wob_label_product', _x('Product', 'WhatsApp message label', 'whatsapp-order-button'))),
+            'quantity' => esc_js(get_option('wob_label_quantity', _x('Quantity', 'WhatsApp message label', 'whatsapp-order-button'))),
+            'price' => esc_js(get_option('wob_label_price', _x('Price', 'WhatsApp message label', 'whatsapp-order-button'))),
+            'total' => esc_js(get_option('wob_label_total', _x('Total', 'WhatsApp message label', 'whatsapp-order-button'))),
+            'link' => esc_js(get_option('wob_label_link', _x('Link', 'WhatsApp message label', 'whatsapp-order-button'))),
         ),
         'icons' => array(
-            'product' => get_option('wob_icon_product', '🛒'),
-            'quantity' => get_option('wob_icon_quantity', '🔢'),
-            'price' => get_option('wob_icon_price', '💰'),
-            'total' => get_option('wob_icon_total', '💵'),
-            'link' => get_option('wob_icon_link', '🔗'),
+            'product' => esc_js(get_option('wob_icon_product', '🛒')),
+            'quantity' => esc_js(get_option('wob_icon_quantity', '🔢')),
+            'price' => esc_js(get_option('wob_icon_price', '💰')),
+            'total' => esc_js(get_option('wob_icon_total', '💵')),
+            'link' => esc_js(get_option('wob_icon_link', '🔗')),
         )
     ));
 
