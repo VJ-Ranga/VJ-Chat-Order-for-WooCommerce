@@ -92,12 +92,12 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 
 == Screenshots ==
 
-1. General Settings tab - Configure phone number and button text
-2. Message Customization tab - Customize labels and icons
-3. Design Settings tab - Style your button
-4. Frontend button on product page
-5. Live preview in admin sidebar
-6. Example WhatsApp message
+1. Frontend button on product page
+2. Admin sidebar live preview
+3. General settings tab
+4. Message customization tab
+5. Design settings tab
+6. Example generated WhatsApp message
 
 == Changelog ==
 
