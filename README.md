@@ -25,7 +25,7 @@ Adds a customizable **"Order via WhatsApp"** button to your WooCommerce product 
 = 1.0.0 =
 * Initial release.
 
-![WhatsApp Order Button](assets/images/WhatsApp-Order-Button-ss.png)
+![WhatsApp Order Button](assets/screenshot-1.png)
 
 ## 🚀 Features
 
@@ -60,24 +60,29 @@ Hello, I'd like to place an order:
 
 ## 📸 Screenshots
 
-![Message](assets/images/WhatsApp-Order-Button-msg-ss.png)
-
-### 1. General Settings
-*Configure your number and button text.*
-![General Tab](assets/images/WhatsApp-Order-Button-g.png)
-
-### 2. Message Customization
-*Define the message content, change labels, and choose emojis.*
-![Message Tab](assets/images/WhatsApp-Order-Button-m.png)
-
-### 3. Design Settings
-*Style the button to match your brand.*
-![Design Tab](assets/images/WhatsApp-Order-Button-d.png)
-
-### 4. Frontend Example
-
-![Button Preview](assets/images/WhatsApp-Order-Button-ss.png)
+### 1. Frontend Button
 *How the button appears on your product page.*
+![Frontend Button](assets/screenshot-1.png)
+
+### 2. Live Preview
+*Real-time preview in the admin sidebar.*
+![Live Preview](assets/screenshot-2.png)
+
+### 3. General Settings
+*Configure your number and button text.*
+![General Settings](assets/screenshot-3.png)
+
+### 4. Message Customization
+*Define the message content, change labels, and choose emojis.*
+![Message Customization](assets/screenshot-4.png)
+
+### 5. Design Settings
+*Style the button to match your brand.*
+![Design Settings](assets/screenshot-5.png)
+
+### 6. Example Message
+*What your customers will send to you.*
+![WhatsApp Message](assets/screenshot-6.png)
 
 ## 🛠️ Installation
 
