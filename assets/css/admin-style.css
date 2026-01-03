@@ -19,6 +19,13 @@
     /* Allow clicks through container */
 }
 
+/* HIDE DEFAULT WORDPRESS NOTICE */
+.wrap>.notice.notice-success,
+.wrap>.updated,
+.notice-success {
+    display: none !important;
+}
+
 .wob-toast {
     background: #fff;
     border-left: 4px solid #25D366;
