@@ -24,7 +24,7 @@ Adds a customizable **"Order via WhatsApp"** button to your WooCommerce product 
     *   Beautiful Toast Notifications for save actions.
 *   **Mobile Optimized:** The dashboard and the frontend button are fully responsive.
 
-## � Example Message
+## 📬 Example Message
 *What your customers will send to you:*
 
 ```text
@@ -37,7 +37,9 @@ Hello, I'd like to place an order:
 🔗 *Link:* https://yourstore.com/product/t-shirt
 ```
 
-## �📸 Screenshots
+## 📸 Screenshots
+
+![Message](assets/images/WhatsApp-Order-Button-msg-ss.png)
 
 ### 1. General Settings
 *Configure your number and button text.*
