@@ -10,20 +10,25 @@ if (!defined('ABSPATH')) {
 }
 
 /**
- * Sanitize hex color
+ * Sanitize hex color with smart fallback
  */
-function wob_sanitize_hex_color($color)
+function wob_sanitize_hex_color($color, $key = '', $default = '')
 {
-    if ('' === $color) {
-        return '';
-    }
-
-    // 3 or 6 hex digits, or the empty string.
+    // 3 or 6 hex digits
     if (preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color)) {
         return $color;
     }
 
-    return '#25D366'; // Default fallback
+    // Invalid input: try to revert to saved value
+    if (!empty($key)) {
+        $saved = get_option($key);
+        if ($saved && preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $saved)) {
+            return $saved;
+        }
+    }
+
+    // Fallback to default
+    return $default;
 }
 
 /**
@@ -104,17 +109,20 @@ function wob_register_settings_init()
 
     // Design Settings
     register_setting('wob_settings_group', 'wob_bg_color', array(
-        'sanitize_callback' => 'wob_sanitize_hex_color',
+        'sanitize_callback' => function ($val) {
+            return wob_sanitize_hex_color($val, 'wob_bg_color', '#25D366'); },
         'default' => '#25D366'
     ));
 
     register_setting('wob_settings_group', 'wob_text_color', array(
-        'sanitize_callback' => 'wob_sanitize_hex_color',
+        'sanitize_callback' => function ($val) {
+            return wob_sanitize_hex_color($val, 'wob_text_color', '#ffffff'); },
         'default' => '#ffffff'
     ));
 
     register_setting('wob_settings_group', 'wob_hover_color', array(
-        'sanitize_callback' => 'wob_sanitize_hex_color',
+        'sanitize_callback' => function ($val) {
+            return wob_sanitize_hex_color($val, 'wob_hover_color', '#1ebe5d'); },
         'default' => '#1ebe5d'
     ));
 
