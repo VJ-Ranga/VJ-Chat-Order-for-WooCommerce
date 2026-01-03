@@ -240,7 +240,8 @@ function wob_enqueue_assets()
     // Add dynamic inline styles
     wob_add_dynamic_styles();
 }
-add_action('wp_enqueue_scripts', 'wob_enqueue_assets');
+// Hook moved to wob_init
+// add_action('wp_enqueue_scripts', 'wob_enqueue_assets');
 
 /**
  * Add dynamic inline styles from settings
@@ -259,17 +260,17 @@ function wob_add_dynamic_styles()
 
     $custom_css = "
         .whatsapp-button {
-            background-color: {$bg_color} !important;
-            color: {$text_color} !important;
-            border-radius: {$border_radius}px !important;
-            font-size: {$font_size}px !important;
-            margin-top: {$margin_top}px !important;
-            margin-bottom: {$margin_bottom}px !important;
-            padding: {$padding_v}px {$padding_h}px !important;
+            background-color: " . esc_attr($bg_color) . " !important;
+            color: " . esc_attr($text_color) . " !important;
+            border-radius: " . esc_attr($border_radius) . "px !important;
+            font-size: " . esc_attr($font_size) . "px !important;
+            margin-top: " . esc_attr($margin_top) . "px !important;
+            margin-bottom: " . esc_attr($margin_bottom) . "px !important;
+            padding: " . esc_attr($padding_v) . "px " . esc_attr($padding_h) . "px !important;
         }
         .whatsapp-button:hover {
-            background-color: {$hover_color} !important;
-            color: {$text_color} !important;
+            background-color: " . esc_attr($hover_color) . " !important;
+            color: " . esc_attr($text_color) . " !important;
         }
     ";
 
@@ -302,4 +303,20 @@ function wob_render_button()
     echo $button_text;
     echo '</a>';
 }
-add_action('woocommerce_after_add_to_cart_form', 'wob_render_button', 10);
+// Hook moved to wob_init
+// add_action('woocommerce_after_add_to_cart_form', 'wob_render_button', 10);
+
+/**
+ * Initialize plugin hooks if WooCommerce is active
+ */
+function wob_init()
+{
+    if (!class_exists('WooCommerce')) {
+        return;
+    }
+
+    // Frontend hooks
+    add_action('wp_enqueue_scripts', 'wob_enqueue_assets');
+    add_action('woocommerce_after_add_to_cart_form', 'wob_render_button', 10);
+}
+add_action('plugins_loaded', 'wob_init');
