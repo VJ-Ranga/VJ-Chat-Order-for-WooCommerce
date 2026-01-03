@@ -52,7 +52,10 @@ function wob_admin_enqueue_scripts($hook)
     wp_localize_script('wob-admin-script', 'wobAdminData', array(
         'defaultIcon' => wob_get_default_icon_url(),
         'uploaderTitle' => __('Select WhatsApp Icon', 'whatsapp-order-button'),
-        'uploaderButton' => __('Use This Icon', 'whatsapp-order-button')
+        'uploaderButton' => __('Use This Icon', 'whatsapp-order-button'),
+        'activeTab' => wob_get_user_active_tab(),
+        'ajaxUrl' => admin_url('admin-ajax.php'),
+        'nonce' => wp_create_nonce('wob_tab_nonce')
     ));
 }
 add_action('admin_enqueue_scripts', 'wob_admin_enqueue_scripts');

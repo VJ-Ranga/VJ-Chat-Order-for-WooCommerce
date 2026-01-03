@@ -23,6 +23,60 @@ define('WOB_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('WOB_PLUGIN_URL', plugin_dir_url(__FILE__));
 
 /**
+ * Get user's last active tab
+ */
+function wob_get_user_active_tab()
+{
+    $user_id = get_current_user_id();
+
+    // Not logged in? Use default
+    if (!$user_id) {
+        return 'general';
+    }
+
+    // Get saved preference
+    $active_tab = get_user_meta($user_id, 'wob_active_tab', true);
+
+    // Validate it's a real tab
+    $valid_tabs = array('general', 'message', 'design');
+    if (!empty($active_tab) && in_array($active_tab, $valid_tabs)) {
+        return $active_tab;
+    }
+
+    return 'general';
+}
+
+/**
+ * Save user's active tab via AJAX
+ */
+function wob_save_active_tab()
+{
+    // Security check
+    check_ajax_referer('wob_tab_nonce', 'nonce');
+
+    // Permission check
+    if (!current_user_can('manage_options')) {
+        wp_send_json_error('Unauthorized', 403);
+    }
+
+    // Get and validate tab
+    $tab = isset($_POST['tab']) ? sanitize_text_field($_POST['tab']) : 'general';
+
+    // Only allow valid tabs
+    $valid_tabs = array('general', 'message', 'design');
+    if (!in_array($tab, $valid_tabs)) {
+        wp_send_json_error('Invalid tab');
+    }
+
+    // Save to user meta
+    $user_id = get_current_user_id();
+    update_user_meta($user_id, 'wob_active_tab', $tab);
+
+    wp_send_json_success(array('message' => 'Tab preference saved'));
+}
+add_action('wp_ajax_wob_save_active_tab', 'wob_save_active_tab');
+
+/**
  * Get default icon URL (local asset)
  */
 function wob_get_default_icon_url()

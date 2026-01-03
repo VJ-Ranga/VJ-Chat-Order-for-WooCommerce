@@ -3,37 +3,45 @@ jQuery(document).ready(function ($) {
     // ==========================================
     // Tab Switching Logic
     // ==========================================
-    // Check for saved tab
-    // Check for saved tab
-    var activeTab = localStorage.getItem('wob_active_tab') || 'general';
+    // Check for saved tab (Server-Side)
+    var activeTab = wobAdminData.activeTab || 'general';
 
-    // RESET ALL TABS FIRST (Prevents mixing)
-    $('.wob-tab-btn').removeClass('active');
-    $('.wob-tab-panel').removeClass('active');
+    // Initialize: Set the saved tab as active
+    function initializeTabs() {
+        $('.wob-tab-btn').removeClass('active');
+        $('.wob-tab-panel').removeClass('active');
 
-    // Activate Saved Tab
-    $('.wob-tab-btn[data-tab="' + activeTab + '"]').addClass('active');
-    $('#tab-' + activeTab).addClass('active');
-
-    // Handle initial state if no active tab found (fallback)
-    if (!$('.wob-tab-btn.active').length) {
-        $('.wob-tab-btn[data-tab="general"]').addClass('active');
-        $('#tab-general').addClass('active');
+        $('.wob-tab-btn[data-tab="' + activeTab + '"]').addClass('active');
+        $('#tab-' + activeTab).addClass('active');
     }
 
-    $('.wob-tab-btn').on('click', function () {
+    // Initialize on page load
+    initializeTabs();
+
+    // Handle tab clicks
+    $('.wob-tab-btn').on('click', function (e) {
+        e.preventDefault();
+
         var tabId = $(this).data('tab');
 
-        // Save to localStorage
-        localStorage.setItem('wob_active_tab', tabId);
+        // Validate tab exists
+        if (!$('#tab-' + tabId).length) {
+            console.warn('Tab not found: ' + tabId);
+            return;
+        }
 
-        // Update button states
-        $('.wob-tab-btn').removeClass('active');
-        $(this).addClass('active');
+        // Update UI immediately (no server delay)
+        activeTab = tabId;
+        initializeTabs();
 
-        // Update panel visibility
-        $('.wob-tab-panel').removeClass('active');
-        $('#tab-' + tabId).addClass('active');
+        // Save to server (fire and forget)
+        $.post(wobAdminData.ajaxUrl, {
+            action: 'wob_save_active_tab',
+            tab: tabId,
+            nonce: wobAdminData.nonce
+        }).fail(function () {
+            console.error('Failed to save tab preference');
+        });
     });
 
     // ==========================================
