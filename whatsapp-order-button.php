@@ -36,6 +36,15 @@ function wob_get_default_icon_url()
 require_once WOB_PLUGIN_DIR . 'inc/admin-settings.php';
 
 /**
+ * Load plugin textdomain
+ */
+function wob_load_textdomain()
+{
+    load_plugin_textdomain('whatsapp-order-button', false, dirname(plugin_basename(__FILE__)) . '/languages');
+}
+add_action('plugins_loaded', 'wob_load_textdomain');
+
+/**
  * Activation hook - set default options
  */
 function wob_activate()
@@ -43,9 +52,9 @@ function wob_activate()
     $defaults = array(
         // General settings
         'wob_phone_number' => '947000000000',
-        'wob_button_text' => 'Order via WhatsApp',
+        'wob_button_text' => __('Order via WhatsApp', 'whatsapp-order-button'),
         'wob_icon_url' => '', // Empty means use default local icon
-        'wob_intro_message' => 'Hello, I\'d like to place an order:',
+        'wob_intro_message' => __('Hello, I\'d like to place an order:', 'whatsapp-order-button'),
         // Design settings
         'wob_bg_color' => '#25D366',
         'wob_text_color' => '#ffffff',
@@ -65,6 +74,17 @@ function wob_activate()
     }
 }
 register_activation_hook(__FILE__, 'wob_activate');
+
+/**
+ * Add Settings link to plugins page
+ */
+function wob_add_settings_link($links)
+{
+    $settings_link = '<a href="options-general.php?page=whatsapp-order-button">' . __('Settings', 'whatsapp-order-button') . '</a>';
+    array_unshift($links, $settings_link);
+    return $links;
+}
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'wob_add_settings_link');
 
 /**
  * Enqueue scripts and styles on product pages
@@ -108,16 +128,16 @@ function wob_enqueue_assets()
     // Localize script with settings and product data
     wp_localize_script('wob-script', 'wobData', array(
         'phoneNumber' => get_option('wob_phone_number', '947000000000'),
-        'introMessage' => get_option('wob_intro_message', 'Hello, I\'d like to place an order:'),
+        'introMessage' => get_option('wob_intro_message', __('Hello, I\'d like to place an order:', 'whatsapp-order-button')),
         'productName' => $product_name,
         'productUrl' => $product_url,
         'currencySymbol' => $currency_symbol,
         'labels' => array(
-            'product' => get_option('wob_label_product', 'Product'),
-            'quantity' => get_option('wob_label_quantity', 'Quantity'),
-            'price' => get_option('wob_label_price', 'Price'),
-            'total' => get_option('wob_label_total', 'Total'),
-            'link' => get_option('wob_label_link', 'Link'),
+            'product' => get_option('wob_label_product', __('Product', 'whatsapp-order-button')),
+            'quantity' => get_option('wob_label_quantity', __('Quantity', 'whatsapp-order-button')),
+            'price' => get_option('wob_label_price', __('Price', 'whatsapp-order-button')),
+            'total' => get_option('wob_label_total', __('Total', 'whatsapp-order-button')),
+            'link' => get_option('wob_label_link', __('Link', 'whatsapp-order-button')),
         ),
         'icons' => array(
             'product' => get_option('wob_icon_product', '🛒'),
@@ -185,7 +205,7 @@ function wob_render_button()
         return;
     }
 
-    $button_text = esc_html(get_option('wob_button_text', 'Order via WhatsApp'));
+    $button_text = esc_html(get_option('wob_button_text', __('Order via WhatsApp', 'whatsapp-order-button')));
     $icon_url = esc_url(wob_get_icon_url());
 
     echo '<a href="#" id="whatsapp-order-btn" class="whatsapp-button">';
