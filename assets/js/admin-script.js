@@ -4,7 +4,14 @@ jQuery(document).ready(function ($) {
     // Tab Switching Logic
     // ==========================================
     // Check for saved tab
+    // Check for saved tab
     var activeTab = localStorage.getItem('wob_active_tab') || 'general';
+
+    // RESET ALL TABS FIRST (Prevents mixing)
+    $('.wob-tab-btn').removeClass('active');
+    $('.wob-tab-panel').removeClass('active');
+
+    // Activate Saved Tab
     $('.wob-tab-btn[data-tab="' + activeTab + '"]').addClass('active');
     $('#tab-' + activeTab).addClass('active');
 
