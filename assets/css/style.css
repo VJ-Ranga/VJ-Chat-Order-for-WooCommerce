@@ -1,0 +1,92 @@
+/**
+ * WhatsApp Order Button Styles
+ * 
+ * @package WhatsApp_Order_Button
+ */
+
+/* WhatsApp Button - Base Styles */
+.whatsapp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+    padding: 12px 15px;
+    background-color: #25D366;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    width: 100%;
+    max-width: 300px;
+}
+
+.whatsapp-button:hover {
+    background-color: #1ebe5d;
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.whatsapp-button:active {
+    transform: translateY(0);
+}
+
+.whatsapp-button:focus {
+    outline: 2px solid #1ebe5d;
+    outline-offset: 2px;
+}
+
+/* WhatsApp Icon */
+.whatsapp-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    filter: brightness(0) invert(1);
+}
+
+/* ===== Sticky Add-to-Cart Bar (Astra Theme) ===== */
+/* Show only icon when in sticky bar (compact mode) */
+.ast-sticky-add-to-cart .whatsapp-button {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 44px;
+    height: 44px;
+    padding: 10px !important;
+    margin: 0 0 0 10px !important;
+    border-radius: 50% !important;
+    font-size: 0 !important;
+    /* Hide text */
+    gap: 0 !important;
+}
+
+.ast-sticky-add-to-cart .whatsapp-button .whatsapp-icon {
+    width: 24px;
+    height: 24px;
+}
+
+/* ===== Responsive adjustments ===== */
+@media (max-width: 768px) {
+    .whatsapp-button {
+        max-width: 100%;
+        font-size: 15px;
+        padding: 14px 20px;
+    }
+
+    /* Keep compact on mobile sticky bar */
+    .ast-sticky-add-to-cart .whatsapp-button {
+        min-width: 40px;
+        height: 40px;
+        padding: 8px !important;
+    }
+
+    .ast-sticky-add-to-cart .whatsapp-button .whatsapp-icon {
+        width: 22px;
+        height: 22px;
+    }
+}
