@@ -39,8 +39,9 @@ Adds a customizable **"Order via WhatsApp"** button to your WooCommerce product 
 ![Design Tab](assets/images/WhatsApp-Order-Button-d.png)
 
 ### 4. Frontend Example
-*How the button appears on your product page.*
+
 ![Button Preview](assets/images/WhatsApp-Order-Button-ss.png)
+*How the button appears on your product page.*
 
 ## 🛠️ Installation
 
