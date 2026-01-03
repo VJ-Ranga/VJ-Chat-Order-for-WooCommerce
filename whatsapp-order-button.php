@@ -218,6 +218,8 @@ function wob_enqueue_assets()
         'productName' => $product_name, // Already decoded above
         'productUrl' => esc_url_raw($product_url),
         'currencySymbol' => $currency_symbol,
+        'priceDecimalSeparator' => wc_get_price_decimal_separator(),
+        'priceThousandSeparator' => wc_get_price_thousand_separator(),
         'labels' => array(
             'product' => get_option('wob_label_product', _x('Product', 'WhatsApp message label', 'whatsapp-order-button')),
             'quantity' => get_option('wob_label_quantity', _x('Quantity', 'WhatsApp message label', 'whatsapp-order-button')),

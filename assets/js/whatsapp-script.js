@@ -37,8 +37,20 @@
                 rawPriceText = simplePriceElement.first().text().trim();
             }
 
-            // Parse price - remove currency symbols and formatting
-            var priceNumeric = parseFloat(rawPriceText.replace(/[^\d.]/g, ''));
+            // Parse price - handle custom decimal separators
+            var decimalSeparator = wobData.priceDecimalSeparator || '.';
+
+            // Escape separator for regex
+            var escapedSeparator = decimalSeparator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+            // Remove everything except digits and the decimal separator
+            var regex = new RegExp('[^0-9' + escapedSeparator + ']', 'g');
+            var cleanPrice = rawPriceText.replace(regex, '');
+
+            // Replace custom separator with dot for JS calculation
+            cleanPrice = cleanPrice.replace(decimalSeparator, '.');
+
+            var priceNumeric = parseFloat(cleanPrice);
             if (isNaN(priceNumeric)) {
                 priceNumeric = 0;
             }
