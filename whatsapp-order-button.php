@@ -115,8 +115,9 @@ function wob_check_woocommerce()
             echo __('WhatsApp Order Button requires WooCommerce to be installed and activated.', 'whatsapp-order-button');
             echo '</p></div>';
         });
-        // Deactivate this plugin
-        deactivate_plugins(plugin_basename(__FILE__));
+        // Soft fail: Do not deactivate functionality, just show notice.
+        // Hooks below are protected by class checks or is_product() which exists in WP context? NO. is_product is WC.
+        // Fatal error risk if we don't return early in hooks.
     }
 }
 add_action('admin_init', 'wob_check_woocommerce');
@@ -177,7 +178,7 @@ add_filter('plugin_action_links_' . plugin_basename(__FILE__), 'wob_add_settings
  */
 function wob_enqueue_assets()
 {
-    if (!is_product()) {
+    if (!function_exists('is_product') || !is_product()) {
         return;
     }
 
@@ -289,7 +290,7 @@ function wob_get_icon_url()
  */
 function wob_render_button()
 {
-    if (!is_product()) {
+    if (!function_exists('is_product') || !is_product()) {
         return;
     }
 
