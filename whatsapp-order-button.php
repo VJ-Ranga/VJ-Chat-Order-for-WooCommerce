@@ -1,13 +1,18 @@
-<?php
 /**
- * Plugin Name: WhatsApp Order Button
+ * Plugin Name: WhatsApp Order Button for WooCommerce
  * Plugin URI: https://github.com/VJ-Ranga/whatsapp-order-button
- * Description: Adds a WhatsApp order button to WooCommerce product pages with customizable settings.
+ * Description: Adds a customizable "Order via WhatsApp" button to WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
  * Version: 1.3.0
  * Author: VJ Ranga
  * Author URI: https://vjranga.com/
  * Text Domain: whatsapp-order-button
+ * Domain Path: /languages
+ * Requires at least: 5.8
+ * Tested up to: 6.7
+ * Requires PHP: 7.4
  * Requires Plugins: woocommerce
+ * WC requires at least: 5.0
+ * WC tested up to: 9.5
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  */
