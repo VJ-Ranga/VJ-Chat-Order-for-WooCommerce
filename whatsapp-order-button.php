@@ -45,6 +45,23 @@ function wob_load_textdomain()
 add_action('plugins_loaded', 'wob_load_textdomain');
 
 /**
+ * Check if WooCommerce is active
+ */
+function wob_check_woocommerce()
+{
+    if (!class_exists('WooCommerce')) {
+        add_action('admin_notices', function () {
+            echo '<div class="notice notice-error"><p>';
+            echo __('WhatsApp Order Button requires WooCommerce to be installed and activated.', 'whatsapp-order-button');
+            echo '</p></div>';
+        });
+        // Deactivate this plugin
+        deactivate_plugins(plugin_basename(__FILE__));
+    }
+}
+add_action('admin_init', 'wob_check_woocommerce');
+
+/**
  * Activation hook - set default options
  */
 function wob_activate()

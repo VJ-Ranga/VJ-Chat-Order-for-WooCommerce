@@ -1,0 +1,252 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WhatsApp Order Button 1.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-01-03 12:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: whatsapp-order-button\n"
+
+#: whatsapp-order-button.php:55
+msgid "Order via WhatsApp"
+msgstr ""
+
+#: whatsapp-order-button.php:57
+msgid "Hello, I'd like to place an order:"
+msgstr ""
+
+#: inc/admin-settings.php:53
+#: inc/admin-settings.php:527
+msgid "WhatsApp Order Settings"
+msgstr ""
+
+#: inc/admin-settings.php:54
+msgid "WhatsApp Order"
+msgstr ""
+
+#: inc/admin-settings.php:136
+#: inc/admin-settings.php:116
+msgid "Product"
+msgstr ""
+
+#: inc/admin-settings.php:138
+#: inc/admin-settings.php:121
+msgid "Quantity"
+msgstr ""
+
+#: inc/admin-settings.php:140
+#: inc/admin-settings.php:126
+msgid "Price"
+msgstr ""
+
+#: inc/admin-settings.php:142
+#: inc/admin-settings.php:131
+msgid "Total"
+msgstr ""
+
+#: inc/admin-settings.php:144
+#: inc/admin-settings.php:136
+msgid "Link"
+msgstr ""
+
+#: inc/admin-settings.php:158
+#: inc/admin-settings.php:538
+msgid "General Settings"
+msgstr ""
+
+#: inc/admin-settings.php:166
+msgid "Button Design"
+msgstr ""
+
+#: inc/admin-settings.php:174
+#: inc/admin-settings.php:554
+msgid "WhatsApp Phone Number"
+msgstr ""
+
+#: inc/admin-settings.php:182
+#: inc/admin-settings.php:555
+msgid "Button Text"
+msgstr ""
+
+#: inc/admin-settings.php:190
+msgid "WhatsApp Icon URL"
+msgstr ""
+
+#: inc/admin-settings.php:198
+msgid "Custom Intro Message"
+msgstr ""
+
+#: inc/admin-settings.php:207
+#: inc/admin-settings.php:591
+msgid "Background Color"
+msgstr ""
+
+#: inc/admin-settings.php:215
+#: inc/admin-settings.php:592
+msgid "Text Color"
+msgstr ""
+
+#: inc/admin-settings.php:223
+#: inc/admin-settings.php:593
+msgid "Hover Color"
+msgstr ""
+
+#: inc/admin-settings.php:231
+#: inc/admin-settings.php:594
+msgid "Border Radius"
+msgstr ""
+
+#: inc/admin-settings.php:239
+#: inc/admin-settings.php:595
+msgid "Font Size"
+msgstr ""
+
+#: inc/admin-settings.php:247
+#: inc/admin-settings.php:596
+msgid "Margin (Top / Bottom)"
+msgstr ""
+
+#: inc/admin-settings.php:255
+#: inc/admin-settings.php:597
+msgid "Padding (Vertical / Horizontal)"
+msgstr ""
+
+#: inc/admin-settings.php:268
+msgid "Configure the WhatsApp order button that appears on your WooCommerce product pages."
+msgstr ""
+
+#: inc/admin-settings.php:273
+msgid "Customize the appearance of your WhatsApp button."
+msgstr ""
+
+#: inc/admin-settings.php:283
+msgid "Enter the WhatsApp number with country code (no + or spaces). Example: 947000000000"
+msgstr ""
+
+#: inc/admin-settings.php:290
+msgid "Text displayed on the WhatsApp button."
+msgstr ""
+
+#: inc/admin-settings.php:302
+msgid "Leave empty for default icon"
+msgstr ""
+
+#: inc/admin-settings.php:304
+#: inc/admin-settings.php:44
+msgid "Upload Icon"
+msgstr ""
+
+#: inc/admin-settings.php:306
+msgid "Reset to Default"
+msgstr ""
+
+#: inc/admin-settings.php:313
+msgid "Upload your own icon or leave empty to use the default local icon. SVG or PNG recommended."
+msgstr ""
+
+#: inc/admin-settings.php:44
+msgid "Select WhatsApp Icon"
+msgstr ""
+
+#: inc/admin-settings.php:44
+msgid "Use This Icon"
+msgstr ""
+
+#: inc/admin-settings.php:343
+msgid "Opening message for the WhatsApp order. Product details will be added automatically."
+msgstr ""
+
+#: inc/admin-settings.php:354
+msgid "Button background color. Default: WhatsApp Green (#25D366)"
+msgstr ""
+
+#: inc/admin-settings.php:362
+msgid "Button text and icon color. Default: White (#ffffff)"
+msgstr ""
+
+#: inc/admin-settings.php:370
+msgid "Button color on hover. Default: Darker Green (#1ebe5d)"
+msgstr ""
+
+#: inc/admin-settings.php:377
+msgid "Corner roundness. 0 = square, 25+ = pill shape. Default: 8px"
+msgstr ""
+
+#: inc/admin-settings.php:384
+msgid "Button text size. Default: 16px"
+msgstr ""
+
+#: inc/admin-settings.php:393
+msgid "Space above and below the button. Default: 15px each"
+msgstr ""
+
+#: inc/admin-settings.php:402
+msgid "Inner spacing of the button. Default: 14px / 24px"
+msgstr ""
+
+#: inc/admin-settings.php:434
+msgid "Label Text"
+msgstr ""
+
+#: inc/admin-settings.php:440
+msgid "Icon"
+msgstr ""
+
+#: inc/admin-settings.php:571
+msgid "Message Labels & Icons"
+msgstr ""
+
+#: inc/admin-settings.php:573
+msgid "Customize the text and icons used in the WhatsApp message."
+msgstr ""
+
+#: inc/admin-settings.php:541
+msgid "Message"
+msgstr ""
+
+#: inc/admin-settings.php:544
+msgid "Design"
+msgstr ""
+
+#: inc/admin-settings.php:604
+msgid "Save Settings"
+msgstr ""
+
+#: inc/admin-settings.php:617
+msgid "Live Preview"
+msgstr ""
+
+#: inc/admin-settings.php:618
+msgid "Save to update"
+msgstr ""
+
+#: inc/admin-settings.php:625
+msgid "Full Button"
+msgstr ""
+
+#: inc/admin-settings.php:643
+msgid "Sticky Bar (Compact)"
+msgstr ""
+
+#: inc/admin-settings.php:656
+msgid "Full button shows on product page"
+msgstr ""
+
+#: inc/admin-settings.php:657
+msgid "Compact icon shows in sticky bar"
+msgstr ""
+
+#: inc/admin-settings.php:267
+msgid "Invalid phone number. Please enter 10-15 digits only."
+msgstr ""
+
+#: whatsapp-order-button.php:40
+msgid "WhatsApp Order Button requires WooCommerce to be installed and activated."
+msgstr ""

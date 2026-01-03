@@ -16,11 +16,11 @@ if (!defined('ABSPATH')) {
 function wob_add_settings_menu()
 {
     add_options_page(
-        'WhatsApp Order Settings',  // Page title
-        'WhatsApp Order',           // Menu title
-        'manage_options',           // Capability
-        'wob-settings',             // Menu slug
-        'wob_render_settings_page'  // Callback function
+        __('WhatsApp Order Settings', 'whatsapp-order-button'),
+        __('WhatsApp Order', 'whatsapp-order-button'),
+        'manage_options',
+        'wob-settings',
+        'wob_render_settings_page'
     );
 }
 add_action('admin_menu', 'wob_add_settings_menu');
@@ -40,24 +40,22 @@ function wob_admin_enqueue_scripts($hook)
         array(),
         WOB_VERSION
     );
+
+    wp_enqueue_script(
+        'wob-admin-script',
+        WOB_PLUGIN_URL . 'assets/js/admin-script.js',
+        array('jquery'),
+        WOB_VERSION,
+        true
+    );
+
+    wp_localize_script('wob-admin-script', 'wobAdminData', array(
+        'defaultIcon' => wob_get_default_icon_url(),
+        'uploaderTitle' => __('Select WhatsApp Icon', 'whatsapp-order-button'),
+        'uploaderButton' => __('Use This Icon', 'whatsapp-order-button')
+    ));
 }
 add_action('admin_enqueue_scripts', 'wob_admin_enqueue_scripts');
-
-/**
- * Register settings
- */
-function wob_register_settings()
-{
-    // Register Settings Page
-    add_options_page(
-        __('WhatsApp Order Settings', 'whatsapp-order-button'),
-        __('WhatsApp Order', 'whatsapp-order-button'),
-        'manage_options',
-        'wob-settings',
-        'wob_render_settings_page'
-    );
-}
-add_action('admin_menu', 'wob_register_settings');
 
 /**
  * Register Settings and Fields
@@ -66,7 +64,7 @@ function wob_register_settings_init()
 {
     // Register Settings
     register_setting('wob_settings_group', 'wob_phone_number', array(
-        'sanitize_callback' => 'sanitize_text_field',
+        'sanitize_callback' => 'wob_sanitize_phone',
         'default' => '947000000000'
     ));
 
@@ -261,6 +259,23 @@ function wob_register_settings_init()
 add_action('admin_init', 'wob_register_settings_init');
 
 /**
+ * Sanitize Phone Number
+ */
+function wob_sanitize_phone($input)
+{
+    $sanitized = sanitize_text_field($input);
+    if (!preg_match('/^[0-9]{10,15}$/', $sanitized)) {
+        add_settings_error(
+            'wob_phone_number',
+            'wob_phone_error',
+            __('Invalid phone number. Please enter 10-15 digits only.', 'whatsapp-order-button')
+        );
+        return get_option('wob_phone_number');
+    }
+    return $sanitized;
+}
+
+/**
  * Section callbacks
  */
 function wob_section_callback()
@@ -312,27 +327,6 @@ function wob_icon_url_field_callback()
     <p class="description">
         <?php _e('Upload your own icon or leave empty to use the default local icon. SVG or PNG recommended.', 'whatsapp-order-button'); ?>
     </p>
-
-    <script>
-        jQuery(document).ready(function ($) {
-            var defaultIcon = '<?php echo esc_js($default_icon); ?>';
-
-            // Media uploader
-            $('.wob-upload-icon-btn').on('click', function (e) {
-                e.preventDefault();
-
-                var mediaUploader = wp.media({
-                    title: '<?php echo esc_js(__('Select WhatsApp Icon', 'whatsapp-order-button')); ?>',
-                    button: { text: '<?php echo esc_js(__('Use This Icon', 'whatsapp-order-button')); ?>' },
-                    multiple: false,
-                    library: { type: ['image'] }
-                });
-                // ... (rest of script remains same, assume standard) ...
-            });
-
-            // ... (rest of script) ...
-        });
-    </script>
     <?php
 }
 
@@ -494,27 +488,6 @@ function wob_render_settings_page()
                 }
                 ?>
             </div>
-            <script>
-                jQuery(document).ready(function ($) {
-                    // Show Toasts with Animation
-                    setTimeout(function () {
-                        $('.wob-toast').addClass('show');
-                    }, 100);
-
-                    // Auto Dismiss after 5 seconds
-                    setTimeout(function () {
-                        $('.wob-toast').removeClass('show');
-                        setTimeout(function () {
-                            $('.wob-toast-container').remove();
-                        }, 300);
-                    }, 5000);
-
-                    // Manual Dismiss
-                    $('.wob-toast-dismiss').on('click', function () {
-                        $(this).closest('.wob-toast').removeClass('show');
-                    });
-                });
-            </script>
             <?php
         }
         ?>
@@ -568,7 +541,8 @@ function wob_render_settings_page()
 
                         <h3 class="wob-section-title"
                             style="margin: 30px 0 20px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
-                            <?php esc_html_e('Message Labels & Icons', 'whatsapp-order-button'); ?></h3>
+                            <?php esc_html_e('Message Labels & Icons', 'whatsapp-order-button'); ?>
+                        </h3>
                         <p class="description" style="margin-bottom: 20px;">
                             <?php esc_html_e('Customize the text and icons used in the WhatsApp message.', 'whatsapp-order-button'); ?>
                         </p>
@@ -659,22 +633,5 @@ function wob_render_settings_page()
             </div>
         </div>
     </div>
-
-    <!-- Tab Switching Script -->
-    <script>
-        jQuery(document).ready(function ($) {
-            $('.wob-tab-btn').on('click', function () {
-                var tabId = $(this).data('tab');
-
-                // Update button states
-                $('.wob-tab-btn').removeClass('active');
-                $(this).addClass('active');
-
-                // Update panel visibility
-                $('.wob-tab-panel').removeClass('active');
-                $('#tab-' + tabId).addClass('active');
-            });
-        });
-    </script>
     <?php
 }
