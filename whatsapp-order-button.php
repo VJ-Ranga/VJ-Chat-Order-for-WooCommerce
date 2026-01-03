@@ -234,8 +234,8 @@ function wob_add_dynamic_styles()
     $hover_color = get_option('wob_hover_color', '#1ebe5d');
     $border_radius = absint(get_option('wob_border_radius', 8));
     $font_size = absint(get_option('wob_font_size', 16));
-    $margin_top = absint(get_option('wob_margin_top', 15));
-    $margin_bottom = absint(get_option('wob_margin_bottom', 15));
+    $margin_top = intval(get_option('wob_margin_top', 15));
+    $margin_bottom = intval(get_option('wob_margin_bottom', 15));
     $padding_v = absint(get_option('wob_padding_vertical', 14));
     $padding_h = absint(get_option('wob_padding_horizontal', 24));
 

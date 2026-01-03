@@ -385,8 +385,8 @@ function wob_margin_field_callback()
 {
     $top = get_option('wob_margin_top', 15);
     $bottom = get_option('wob_margin_bottom', 15);
-    echo '<input type="number" name="wob_margin_top" value="' . esc_attr($top) . '" min="0" max="100" style="width: 70px;"> px (top) &nbsp;&nbsp;';
-    echo '<input type="number" name="wob_margin_bottom" value="' . esc_attr($bottom) . '" min="0" max="100" style="width: 70px;"> px (bottom)';
+    echo '<input type="number" name="wob_margin_top" value="' . esc_attr($top) . '" style="width: 70px;"> px (top) &nbsp;&nbsp;';
+    echo '<input type="number" name="wob_margin_bottom" value="' . esc_attr($bottom) . '" style="width: 70px;"> px (bottom)';
     echo '<p class="description">' . __('Space above and below the button. Default: 15px each', 'whatsapp-order-button') . '</p>';
 }
 
