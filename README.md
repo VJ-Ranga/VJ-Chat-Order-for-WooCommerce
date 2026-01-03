@@ -1,8 +1,24 @@
 # WhatsApp Order Button for WooCommerce
+Stable tag: 1.2.0
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 By **VJ Ranga**
 
+== Description ==
 Adds a customizable **"Order via WhatsApp"** button to your WooCommerce product pages, allowing customers to send orders details directly to your WhatsApp number.
+
+== Changelog ==
+
+= 1.2.0 =
+* Fix: Solved double "Settings saved" notification issue.
+* Fix: Corrected settings link slug mismatch.
+* Enhancement: Added icon uploader validation and preview improvements.
+* Enhancement: Added frontend data validation for stability.
+* Enhancement: Optimized performance with lazy loading for admin images.
+
+= 1.0.0 =
+* Initial release.
 
 ![WhatsApp Order Button](assets/images/WhatsApp-Order-Button-ss.png)
 
