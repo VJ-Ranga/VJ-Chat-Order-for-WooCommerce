@@ -5,7 +5,7 @@ Tags: woocommerce, whatsapp, order, button, ecommerce, chat
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
@@ -102,9 +102,9 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 
 == Changelog ==
 
-= 1.3.1 =
-* Rename: Plugin renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
-* Performance: Optimized uninstall process with direct SQL deletion to prevent timeouts on large sites.
+= 1.4.0 =
+* Rename: Plugin officially renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
+* Performance: Optimized uninstall process with direct SQL deletion.
 
 = 1.3.0 =
 * Feature: Added helpful "Pro Tip" box for using emojis in message labels
@@ -128,8 +128,8 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 
 == Upgrade Notice ==
 
-= 1.3.1 =
-Plugin renamed to "VJ Chat Order for WooCommerce". Please re-activate if necessary.
+= 1.4.0 =
+Plugin renamed to "VJ Chat Order for WooCommerce". Includes performance optimization.
 
 = 1.3.0 =
 This version adds helpful emoji tips and improves the user interface. Safe to update.

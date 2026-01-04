@@ -1,5 +1,5 @@
 # VJ Chat Order for WooCommerce
-Stable tag: 1.3.1
+Stable tag: 1.4.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -10,9 +10,9 @@ Adds a customizable **"Order via Chat App"** button to your WooCommerce product 
 
 == Changelog ==
 
-= 1.3.1 =
-* Rename: Plugin renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
-* Performance: Optimized uninstall process with direct SQL deletion to prevent timeouts on large sites.
+= 1.4.0 =
+* Rename: Plugin officially renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
+* Performance: Optimized uninstall process with direct SQL deletion.
 
 = 1.3.0 =
 * Feature: Added helpful "Pro Tip" box for using emojis in message labels (Win + . / Cmd + Ctrl + Space).

@@ -3,7 +3,7 @@
  * Plugin Name: VJ Chat Order for WooCommerce
  * Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
  * Description: Adds a customizable "Order via Chat App" button to WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
- * Version: 1.3.1
+ * Version: 1.4.0
  * Author: VJ Ranga
  * Author URI: https://vjranga.com/
  * Text Domain: vj-chat-order
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VJ_CHAT_VERSION', '1.3.1');
+define('VJ_CHAT_VERSION', '1.4.0');
 define('VJ_CHAT_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VJ_CHAT_PLUGIN_URL', plugin_dir_url(__FILE__));
 
