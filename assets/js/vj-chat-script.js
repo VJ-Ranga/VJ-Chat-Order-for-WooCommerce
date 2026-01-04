@@ -1,122 +1,91 @@
 /**
- * VJ Chat Order Script
+ * VJ Chat Order Script (Refactored to Vanilla JS)
  * 
  * Handles price calculation, variant detection, and WhatsApp message construction
+ * Matches user's preferred logic structure.
  * 
  * @package VJ_Chat_Order
  */
 
-(function ($) {
-    'use strict';
+document.addEventListener("DOMContentLoaded", function () {
+    var whatsappButton = document.getElementById("vj-chat-order-btn");
 
-    $(document).ready(function () {
-        var whatsappButton = $('#vj-chat-order-btn');
+    // Check if button exists and data is loaded
+    if (!whatsappButton || typeof vjChatData === 'undefined') {
+        return;
+    }
 
-        if (!whatsappButton.length || typeof vjChatData === 'undefined') {
-            return;
+    whatsappButton.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        // 1. Get Quantity
+        var qtyInput = document.querySelector('input.qty');
+        var quantity = qtyInput ? parseInt(qtyInput.value) : 1;
+        if (isNaN(quantity) || quantity < 1) quantity = 1;
+
+        // 2. Get Price & Calculate Total
+        var rawPriceText = "";
+        var variationPriceElement = document.querySelector('.woocommerce-variation-price .price .amount');
+        var simplePriceElement = document.querySelector('.summary .price .amount');
+
+        if (variationPriceElement) {
+            rawPriceText = variationPriceElement.innerText.trim();
+        } else if (simplePriceElement) {
+            rawPriceText = simplePriceElement.innerText.trim();
         }
 
-        whatsappButton.on('click', function (event) {
-            event.preventDefault();
+        // Helper to turn currency string (e.g., "$ 700.00" or "Rs. 700.00") into a number
+        // User's preferred regex: Remove everything except digits and dots
+        var priceNumeric = parseFloat(rawPriceText.replace(/[^\d.]/g, ''));
 
-            // 1. Get Quantity
-            var qtyInput = $('input.qty');
-            var quantity = qtyInput.length ? parseInt(qtyInput.val()) : 1;
-            if (isNaN(quantity) || quantity < 1) {
-                quantity = 1;
-            }
+        if (isNaN(priceNumeric)) {
+            priceNumeric = 0;
+        }
 
-            // 2. Get Price & Calculate Total
-            var rawPriceText = '';
-            var variationPriceElement = $('.woocommerce-variation-price .price .amount');
-            var simplePriceElement = $('.summary .price .amount');
+        var totalPrice = (priceNumeric * quantity).toLocaleString(undefined, {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
 
-            if (variationPriceElement.length) {
-                rawPriceText = variationPriceElement.first().text().trim();
-            } else if (simplePriceElement.length) {
-                rawPriceText = simplePriceElement.first().text().trim();
-            }
+        var currency = vjChatData.currencySymbol || '';
 
-            // Parse price - handle custom decimal separators
-            var decimalSeparator = vjChatData.priceDecimalSeparator || '.';
+        // 3. Get Variants
+        var variantText = "";
+        var variationIdInput = document.querySelector('input.variation_id');
 
-            // Escape separator for regex
-            var escapedSeparator = decimalSeparator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (variationIdInput && variationIdInput.value && variationIdInput.value !== "0") {
+            var details = [];
+            document.querySelectorAll(".variations select").forEach(select => {
+                if (select.value) {
+                    // Extract clean name from the 'name' attribute
+                    var attrName = select.name.replace('attribute_pa_', '')
+                        .replace('attribute_', '')
+                        .replace(/-/g, ' ');
 
-            // Remove everything except digits and the decimal separator
-            var regex = new RegExp('[^0-9' + escapedSeparator + ']', 'g');
-            var cleanPrice = rawPriceText.replace(regex, '');
+                    // Capitalize first letter
+                    attrName = attrName.charAt(0).toUpperCase() + attrName.slice(1);
 
-            // Replace custom separator with dot for JS calculation
-            cleanPrice = cleanPrice.replace(decimalSeparator, '.');
-
-            var priceNumeric = parseFloat(cleanPrice);
-            if (isNaN(priceNumeric)) {
-                priceNumeric = 0;
-            }
-
-            var totalPrice = (priceNumeric * quantity).toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
+                    // Get selected option text
+                    var attrVal = select.options[select.selectedIndex].text;
+                    details.push(attrName + ": " + attrVal);
+                }
             });
 
-            var currency = vjChatData.currencySymbol || '';
-
-            // 3. Get Variants
-            var variantText = '';
-            var variationIdInput = $('input.variation_id');
-
-            if (variationIdInput.length && variationIdInput.val() && variationIdInput.val() !== '0') {
-                var details = [];
-
-                $('.variations select').each(function () {
-                    var select = $(this);
-                    if (select.val()) {
-                        // Extract clean attribute name
-                        var attrName = select.attr('name')
-                            .replace('attribute_pa_', '')
-                            .replace('attribute_', '')
-                            .replace(/-/g, ' ');
-
-                        // Capitalize first letter
-                        attrName = attrName.charAt(0).toUpperCase() + attrName.slice(1);
-
-                        // Get selected option text
-                        var attrVal = select.find('option:selected').text();
-                        details.push(attrName + ': ' + attrVal);
-                    }
-                });
-
-                if (details.length > 0) {
-                    variantText = '\n📌 *Variant:* ' + details.join(', ');
-                }
+            if (details.length > 0) {
+                variantText = "\n📌 *" + (vjChatData.labels.variant || 'Variant') + ":* " + details.join(", ");
             }
+        }
 
-            // 4. Construct Final Message
-            var introMessage = vjChatData.introMessage || 'Hello, I\'d like to place an order:';
-            var productName = vjChatData.productName || 'Product';
-            var productUrl = vjChatData.productUrl || '';
-            var phoneNumber = vjChatData.phoneNumber || '';
+        // 4. Construct Final Message
+        var message = (vjChatData.introMessage || "Hello, I'd like to place an order:") + "\n\n";
+        message += "🛒 *" + (vjChatData.labels.product || 'Product') + ":* " + (vjChatData.productName || 'Product') + "\n";
+        message += "🔢 *" + (vjChatData.labels.quantity || 'Quantity') + ":* " + quantity + "\n";
+        message += "💰 *" + (vjChatData.labels.price || 'Price') + ":* " + rawPriceText + variantText + "\n";
+        message += (vjChatData.icons.total || '💵') + " *" + (vjChatData.labels.total || 'Total') + ":* " + currency + " " + totalPrice + "\n\n";
+        message += "🔗 *" + (vjChatData.labels.link || 'Link') + ":* " + (vjChatData.productUrl || '') + "";
 
-            // Default fallbacks (if not set in PHP)
-            var icons = vjChatData.icons || {
-                product: '🛒', quantity: '🔢', price: '💰', total: '💵', link: '🔗'
-            };
-            var labels = vjChatData.labels || {
-                product: 'Product', quantity: 'Quantity', price: 'Price', total: 'Total', link: 'Link'
-            };
-
-            var message = introMessage + '\n\n';
-            message += icons.product + ' *' + labels.product + ':* ' + productName + '\n';
-            message += icons.quantity + ' *' + labels.quantity + ':* ' + quantity + '\n';
-            message += icons.price + ' *' + labels.price + ':* ' + rawPriceText + variantText + '\n';
-            message += icons.total + ' *' + labels.total + ':* ' + currency + ' ' + totalPrice + '\n\n';
-            message += icons.link + ' *' + labels.link + ':* ' + productUrl;
-
-            // Open WhatsApp
-            var whatsappUrl = 'https://api.whatsapp.com/send?phone=' + phoneNumber + '&text=' + encodeURIComponent(message);
-            window.open(whatsappUrl, '_blank');
-        });
+        // Open WhatsApp
+        var phone = vjChatData.phoneNumber || '';
+        window.open("https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message), "_blank");
     });
-
-})(jQuery);
+});

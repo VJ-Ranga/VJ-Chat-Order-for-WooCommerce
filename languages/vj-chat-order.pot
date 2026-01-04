@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: VJ Chat Order 1.4.0\n"
+"Project-Id-Version: VJ Chat Order 2.0.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-03 12:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Domain: whatsapp-order-button\n"
+"X-Domain: vj-chat-order\n"
 
 #: whatsapp-order-button.php:55
 msgid "Order via WhatsApp"

@@ -3,7 +3,7 @@
  * Plugin Name: VJ Chat Order for WooCommerce
  * Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
  * Description: Adds a customizable "Order via Chat App" button to WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
- * Version: 1.4.0
+ * Version: 2.0.0
  * Author: VJ Ranga
  * Author URI: https://vjranga.com/
  * Text Domain: vj-chat-order
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VJ_CHAT_VERSION', '1.4.0');
+define('VJ_CHAT_VERSION', '2.0.0');
 define('VJ_CHAT_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VJ_CHAT_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -182,7 +182,7 @@ function vj_chat_enqueue_assets()
     // Enqueue CSS
     wp_enqueue_style(
         'vj-chat-style',
-        VJ_CHAT_PLUGIN_URL . 'assets/css/style.css',
+        VJ_CHAT_PLUGIN_URL . 'assets/css/vj-chat-style.css',
         array(),
         VJ_CHAT_VERSION
     );
@@ -243,9 +243,17 @@ function vj_chat_enqueue_assets()
  */
 function vj_chat_add_dynamic_styles()
 {
-    $bg_color = get_option('vj_chat_bg_color', '#25D366');
-    $text_color = get_option('vj_chat_text_color', '#ffffff');
-    $hover_color = get_option('vj_chat_hover_color', '#1ebe5d');
+    $button_style = get_option('vj_chat_button_style', 'standard');
+
+    if ($button_style === 'compact') {
+        $bg_color = get_option('vj_chat_compact_bg_color', '#25D366');
+        $text_color = get_option('vj_chat_compact_text_color', '#ffffff');
+        $hover_color = get_option('vj_chat_compact_hover_color', '#1ebe5d');
+    } else {
+        $bg_color = get_option('vj_chat_bg_color', '#25D366');
+        $text_color = get_option('vj_chat_text_color', '#ffffff');
+        $hover_color = get_option('vj_chat_hover_color', '#1ebe5d');
+    }
     $border_radius = absint(get_option('vj_chat_border_radius', 8));
     $font_size = absint(get_option('vj_chat_font_size', 16));
     $margin_top = intval(get_option('vj_chat_margin_top', 15));
@@ -253,21 +261,72 @@ function vj_chat_add_dynamic_styles()
     $padding_v = absint(get_option('vj_chat_padding_vertical', 14));
     $padding_h = absint(get_option('vj_chat_padding_horizontal', 24));
 
+    // Floating settings
+    $mode = get_option('vj_chat_placement_mode', 'auto');
+    $floating_pos = get_option('vj_chat_floating_position', 'bottom-right');
+    // $dist = absint(get_option('vj_chat_floating_distance', 20)); // Deprecated
+    $offset_x = absint(get_option('vj_chat_floating_offset_x', 20));
+    $offset_y = absint(get_option('vj_chat_floating_offset_y', 20));
+
+    // Compact Mode Settings
+    $compact_size = absint(get_option('vj_chat_compact_size', 44));
+    // Default icon size 24px or user setting
+    $compact_icon_size = absint(get_option('vj_chat_compact_icon_size', 24));
+
     $custom_css = "
         .vj-chat-button {
             background-color: " . esc_attr($bg_color) . " !important;
             color: " . esc_attr($text_color) . " !important;
-            border-radius: " . esc_attr($border_radius) . "px !important;
             font-size: " . esc_attr($font_size) . "px !important;
             margin-top: " . esc_attr($margin_top) . "px !important;
             margin-bottom: " . esc_attr($margin_bottom) . "px !important;
+        }
+        /* Only apply shape/padding to standard button */
+        .vj-chat-button:not(.vj-chat-compact) {
+            border-radius: " . esc_attr($border_radius) . "px !important;
             padding: " . esc_attr($padding_v) . "px " . esc_attr($padding_h) . "px !important;
+        }
+        /* Compact Button Size */
+        .vj-chat-compact {
+            width: " . esc_attr($compact_size) . "px !important;
+            height: " . esc_attr($compact_size) . "px !important;
+            min-width: " . esc_attr($compact_size) . "px !important;
+        }
+        .vj-chat-compact .vj-chat-icon {
+            width: " . esc_attr($compact_icon_size) . "px !important;
+            height: " . esc_attr($compact_icon_size) . "px !important;
         }
         .vj-chat-button:hover {
             background-color: " . esc_attr($hover_color) . " !important;
             color: " . esc_attr($text_color) . " !important;
         }
     ";
+
+    // Add Floating Position Styles if active
+    if ($mode === 'floating') {
+        $pos_css = "";
+        switch ($floating_pos) {
+            case 'bottom-left':
+                $pos_css = "bottom: {$offset_y}px; left: {$offset_x}px;";
+                break;
+            case 'top-right':
+                $pos_css = "top: {$offset_y}px; right: {$offset_x}px;";
+                break;
+            case 'top-left':
+                $pos_css = "top: {$offset_y}px; left: {$offset_x}px;";
+                break;
+            case 'bottom-right':
+            default:
+                $pos_css = "bottom: {$offset_y}px; right: {$offset_x}px;";
+                break;
+        }
+        $custom_css .= "
+            .vj-chat-floating {
+                " . $pos_css . "
+                z-index: 9999 !important;
+            }
+        ";
+    }
 
     wp_add_inline_style('vj-chat-style', $custom_css);
 }
@@ -284,20 +343,66 @@ function vj_chat_get_icon_url()
 /**
  * Render WhatsApp button on product page
  */
-function vj_chat_render_button()
+/**
+ * Get Button HTML (Helper)
+ */
+function vj_chat_get_button_html($extra_classes = '')
 {
     if (!function_exists('is_product') || !is_product()) {
-        return;
+        return '';
     }
 
     $button_text = esc_html(get_option('vj_chat_button_text', __('Order via WhatsApp', 'vj-chat-order')));
     $icon_url = esc_url(vj_chat_get_icon_url());
+    $style = get_option('vj_chat_button_style', 'standard');
 
-    echo '<a href="#" id="vj-chat-order-btn" class="vj-chat-button">';
-    echo '<img src="' . $icon_url . '" alt="WhatsApp" class="vj-chat-icon"> ';
-    echo $button_text;
-    echo '</a>';
+    $output = '<a href="#" id="vj-chat-order-btn" class="vj-chat-button ' . esc_attr($extra_classes) . '">';
+    $output .= '<img src="' . $icon_url . '" alt="WhatsApp" class="vj-chat-icon"> ';
+
+    if ($style !== 'compact') {
+        $output .= $button_text;
+    }
+
+    $output .= '</a>';
+
+    return $output;
 }
+
+/**
+ * Render WhatsApp button (Action Hook Callback)
+ */
+function vj_chat_render_button()
+{
+    $mode = get_option('vj_chat_placement_mode', 'auto');
+    $style = get_option('vj_chat_button_style', 'standard'); // Check style globally
+    $classes = '';
+
+    if ($mode === 'floating') {
+        $classes = 'vj-chat-floating';
+    }
+
+    // Apply Compact Style if selected
+    if ($style === 'compact') {
+        $classes .= ' vj-chat-compact';
+    }
+
+    if ($mode === 'floating') {
+        echo '<div class="vj-chat-floating-container">'; // Wrapper for safety
+        echo vj_chat_get_button_html($classes);
+        echo '</div>';
+    } else {
+        echo vj_chat_get_button_html($classes);
+    }
+}
+
+/**
+ * Shortcode Callback
+ */
+function vj_chat_shortcode_callback($atts)
+{
+    return vj_chat_get_button_html('vj-chat-shortcode');
+}
+add_shortcode('vj_chat_order_button', 'vj_chat_shortcode_callback');
 
 /**
  * Initialize plugin hooks if WooCommerce is active
@@ -310,6 +415,17 @@ function vj_chat_init()
 
     // Frontend hooks
     add_action('wp_enqueue_scripts', 'vj_chat_enqueue_assets');
-    add_action('woocommerce_after_add_to_cart_form', 'vj_chat_render_button', 10);
+
+    // Placement Logic
+    $mode = get_option('vj_chat_placement_mode', 'auto');
+
+    if ($mode === 'auto') {
+        // Auto: Position 30 (After Add to Cart form usually)
+        add_action('woocommerce_single_product_summary', 'vj_chat_render_button', 30);
+    } elseif ($mode === 'floating') {
+        // Floating: Add to footer (will be fixed via CSS)
+        add_action('wp_footer', 'vj_chat_render_button');
+    }
+    // 'shortcode' mode: No hook added.
 }
 add_action('plugins_loaded', 'vj_chat_init');

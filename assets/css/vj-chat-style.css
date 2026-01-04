@@ -90,3 +90,47 @@
         height: 22px;
     }
 }
+
+/* ===== Floating Button Styles ===== */
+.vj-chat-floating {
+    position: fixed !important;
+    z-index: 2147483647 !important;
+    /* Max z-index to override everything */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    width: auto !important;
+    max-width: none !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    visibility: visible !important;
+}
+
+/* ===== Compact Mode (Icon Only) ===== */
+.vj-chat-compact {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 44px !important;
+    width: 55px !important;
+    height: 55px !important;
+    border-radius: 50% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 0 !important;
+    /* Hide text */
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+}
+
+.vj-chat-compact .vj-chat-icon {
+    width: 30px !important;
+    height: 30px !important;
+    margin: 0 !important;
+}
+
+/* Ensure it stays compact on mobile */
+@media (max-width: 768px) {
+    .vj-chat-floating {
+        width: auto !important;
+        max-width: none !important;
+    }
+}

@@ -107,6 +107,29 @@ function vj_chat_register_settings_init()
         'default' => 'Hello, I\'d like to place an order:'
     ));
 
+    // Placement Settings
+    register_setting('vj_chat_settings_group', 'vj_chat_placement_mode', array(
+        'sanitize_callback' => 'sanitize_text_field',
+        'default' => 'auto'
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_floating_position', array(
+        'sanitize_callback' => 'sanitize_text_field',
+        'default' => 'bottom-right'
+    ));
+
+    // register_setting('vj_chat_settings_group', 'vj_chat_floating_distance', ...); // Deprecated
+
+    register_setting('vj_chat_settings_group', 'vj_chat_floating_offset_x', array(
+        'sanitize_callback' => 'absint',
+        'default' => 20
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_floating_offset_y', array(
+        'sanitize_callback' => 'absint',
+        'default' => 20
+    ));
+
     // Design Settings
     register_setting('vj_chat_settings_group', 'vj_chat_bg_color', array(
         'sanitize_callback' => function ($val) {
@@ -129,10 +152,41 @@ function vj_chat_register_settings_init()
         'default' => '#1ebe5d'
     ));
 
+    register_setting('vj_chat_settings_group', 'vj_chat_button_style', array(
+        'sanitize_callback' => 'sanitize_text_field',
+        'default' => 'standard'
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_compact_size', array(
+        'sanitize_callback' => 'absint',
+        'default' => 44
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_compact_icon_size', array(
+        'sanitize_callback' => 'absint',
+        'default' => 24
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_compact_bg_color', array(
+        'sanitize_callback' => 'sanitize_hex_color',
+        'default' => '#25D366'
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_compact_text_color', array(
+        'sanitize_callback' => 'sanitize_hex_color',
+        'default' => '#ffffff'
+    ));
+
+    register_setting('vj_chat_settings_group', 'vj_chat_compact_hover_color', array(
+        'sanitize_callback' => 'sanitize_hex_color',
+        'default' => '#1ebe5d'
+    ));
+
     register_setting('vj_chat_settings_group', 'vj_chat_border_radius', array(
         'sanitize_callback' => 'absint',
         'default' => 8
     ));
+
 
     register_setting('vj_chat_settings_group', 'vj_chat_font_size', array(
         'sanitize_callback' => 'absint',
@@ -188,6 +242,13 @@ function vj_chat_register_settings_init()
         'vj-chat-settings'
     );
 
+    add_settings_section(
+        'vj_chat_placement_section',
+        __('Placement Settings', 'vj-chat-order'),
+        'vj_chat_placement_section_callback',
+        'vj-chat-settings'
+    );
+
     // ===== Design Section =====
     add_settings_section(
         'vj_chat_design_section',
@@ -229,7 +290,56 @@ function vj_chat_register_settings_init()
         'vj_chat_main_section'
     );
 
+    // ===== Placement Fields =====
+    add_settings_field(
+        'vj_chat_placement_mode',
+        __('Button Placement', 'vj-chat-order'),
+        'vj_chat_placement_mode_callback',
+        'vj-chat-settings',
+        'vj_chat_placement_section'
+    );
+
+    add_settings_field(
+        'vj_chat_floating_position',
+        __('Floating Position', 'vj-chat-order'),
+        'vj_chat_floating_position_callback',
+        'vj-chat-settings',
+        'vj_chat_placement_section'
+    );
+
+    add_settings_field(
+        'vj_chat_floating_offset_x',
+        __('Horizontal Offset (Left/Right)', 'vj-chat-order'),
+        'vj_chat_floating_offset_x_callback',
+        'vj-chat-settings',
+        'vj_chat_placement_section'
+    );
+
+    add_settings_field(
+        'vj_chat_floating_offset_y',
+        __('Vertical Offset (Up/Down)', 'vj-chat-order'),
+        'vj_chat_floating_offset_y_callback',
+        'vj-chat-settings',
+        'vj_chat_placement_section'
+    );
+
     // ===== Design Fields =====
+    add_settings_field(
+        'vj_chat_button_style',
+        __('Button Style', 'vj-chat-order'),
+        'vj_chat_button_style_field_callback',
+        'vj-chat-settings',
+        'vj_chat_design_section'
+    );
+
+    add_settings_field(
+        'vj_chat_compact_size',
+        __('Compact Button Size', 'vj-chat-order'),
+        'vj_chat_compact_size_field_callback',
+        'vj-chat-settings',
+        'vj_chat_design_section'
+    );
+
     add_settings_field(
         'vj_chat_bg_color',
         __('Background Color', 'vj-chat-order'),
@@ -313,6 +423,11 @@ function vj_chat_section_callback()
     echo '<p>' . __('Configure the Chat Order button that appears on your WooCommerce product pages.', 'vj-chat-order') . '</p>';
 }
 
+function vj_chat_placement_section_callback()
+{
+    echo '<p>' . __('Choose where the button appears on your product pages.', 'vj-chat-order') . '</p>';
+}
+
 function vj_chat_design_section_callback()
 {
     echo '<p>' . __('Customize the appearance of your WhatsApp button.', 'vj-chat-order') . '</p>';
@@ -365,6 +480,141 @@ function vj_chat_intro_message_field_callback()
     echo '<p class="description">' . __('Opening message for the WhatsApp order. Product details will be added automatically.', 'vj-chat-order') . '</p>';
 }
 
+// ===== Placement Callbacks =====
+
+function vj_chat_placement_mode_callback()
+{
+    $option = get_option('vj_chat_placement_mode', 'auto');
+    ?>
+    <select name="vj_chat_placement_mode" id="vj_chat_placement_mode">
+        <option value="auto" <?php selected($option, 'auto'); ?>>
+            <?php _e('Auto (Priority 25 - Between Desc & Cart)', 'vj-chat-order'); ?>
+        </option>
+        <option value="shortcode" <?php selected($option, 'shortcode'); ?>><?php _e('Shortcode Only', 'vj-chat-order'); ?>
+        </option>
+        <option value="floating" <?php selected($option, 'floating'); ?>><?php _e('Floating Button', 'vj-chat-order'); ?>
+        </option>
+    </select>
+    <p class="description">
+        <?php _e('<strong>Auto:</strong> Automatically placed in product summary.', 'vj-chat-order'); ?><br>
+        <?php _e('<strong>Shortcode:</strong> Use <code>[vj_chat_order_button]</code> to place manually.', 'vj-chat-order'); ?><br>
+        <?php _e('<strong>Floating:</strong> Fixed to the corner of the screen.', 'vj-chat-order'); ?>
+    </p>
+
+    <!-- Simple JS to toggle floating fields visibility -->
+    <script>
+        jQuery(document).ready(function ($) {
+            function toggleFloatingFields() {
+                var mode = $('#vj_chat_placement_mode').val();
+                if (mode === 'floating') {
+                    $('tr:has(#vj_chat_floating_position), tr:has(#vj_chat_floating_offset_x), tr:has(#vj_chat_floating_offset_y)').show();
+                } else {
+                    $('tr:has(#vj_chat_floating_position), tr:has(#vj_chat_floating_offset_x), tr:has(#vj_chat_floating_offset_y)').hide();
+                }
+            }
+
+            function toggleCompactFields() {
+                var style = $('#vj_chat_button_style').val();
+                if (style === 'compact') {
+                    // Toggle Groups
+                    $('#vj-standard-design-table').hide();
+                    $('#vj-compact-design-table').show();
+
+                    // Hide Button Text in General Tab
+                    $('tr:has([name="vj_chat_button_text"])').hide();
+
+                    // Get Compact Colors for Preview
+                    var bgColor = $('[name="vj_chat_compact_bg_color"]').val() || '#25D366';
+
+                    // Update Preview to Circle
+                    var size = parseInt($('[name="vj_chat_compact_size"]').val() || 44);
+                    var iconSize = parseInt($('[name="vj_chat_compact_icon_size"]').val() || 24);
+
+                    // Prevent negative padding
+                    if (iconSize > size) iconSize = size - 10;
+
+                    var padding = (size - iconSize) / 2;
+
+                    $('.vj-chat-icon-preview img').css({
+                        'border-radius': '50%',
+                        'width': size + 'px',
+                        'height': size + 'px',
+                        'padding': padding + 'px',
+                        'box-sizing': 'border-box',
+                        'background-color': bgColor
+                    });
+                } else {
+                    // Toggle Groups
+                    $('#vj-standard-design-table').show();
+                    $('#vj-compact-design-table').hide();
+
+                    // Show Button Text in General Tab
+                    $('tr:has([name="vj_chat_button_text"])').show();
+
+                    // Get Standard Colors for Preview
+                    var bgColor = $('[name="vj_chat_bg_color"]').val() || '#25D366';
+
+                    // Reset Preview to Square/Rounded
+                    var radius = $('[name="vj_chat_border_radius"]').val() || 8;
+                    $('.vj-chat-icon-preview img').css({
+                        'border-radius': radius + 'px',
+                        'width': 'auto',
+                        'height': 'auto',
+                        'max-width': '40px',
+                        'padding': '8px',
+                        'box-sizing': 'content-box',
+                        'background-color': bgColor
+                    });
+                }
+            }
+
+            // Sync preview on input change
+            $('[name="vj_chat_compact_size"], [name="vj_chat_compact_icon_size"]').on('input change', toggleCompactFields);
+            $('[name="vj_chat_compact_bg_color"], [name="vj_chat_bg_color"]').on('input change', toggleCompactFields);
+            $('[name="vj_chat_border_radius"]').on('input change', toggleCompactFields);
+
+            $('#vj_chat_placement_mode').on('change', toggleFloatingFields);
+            $('#vj_chat_button_style').on('change', toggleCompactFields);
+
+            // Run on load
+            toggleFloatingFields();
+            setTimeout(toggleCompactFields, 100); // Small delay to ensure DOM is ready
+        });
+    </script>
+    <?php
+}
+
+function vj_chat_floating_position_callback()
+{
+    $option = get_option('vj_chat_floating_position', 'bottom-right');
+    ?>
+    <select name="vj_chat_floating_position" id="vj_chat_floating_position">
+        <option value="bottom-right" <?php selected($option, 'bottom-right'); ?>>
+            <?php _e('Bottom Right', 'vj-chat-order'); ?>
+        </option>
+        <option value="bottom-left" <?php selected($option, 'bottom-left'); ?>><?php _e('Bottom Left', 'vj-chat-order'); ?>
+        </option>
+        <option value="top-right" <?php selected($option, 'top-right'); ?>><?php _e('Top Right', 'vj-chat-order'); ?>
+        </option>
+        <option value="top-left" <?php selected($option, 'top-left'); ?>><?php _e('Top Left', 'vj-chat-order'); ?></option>
+    </select>
+    <?php
+}
+
+function vj_chat_floating_offset_x_callback()
+{
+    $val = get_option('vj_chat_floating_offset_x', 20);
+    echo '<input type="number" name="vj_chat_floating_offset_x" id="vj_chat_floating_offset_x" value="' . esc_attr($val) . '" min="0" max="500" style="width: 70px;"> px';
+    echo '<p class="description">' . __('Distance from the left or right edge (depending on position).', 'vj-chat-order') . '</p>';
+}
+
+function vj_chat_floating_offset_y_callback()
+{
+    $val = get_option('vj_chat_floating_offset_y', 20);
+    echo '<input type="number" name="vj_chat_floating_offset_y" id="vj_chat_floating_offset_y" value="' . esc_attr($val) . '" min="0" max="500" style="width: 70px;"> px';
+    echo '<p class="description">' . __('Distance from the top or bottom edge (depending on position). Increase this to move the button up/down.', 'vj-chat-order') . '</p>';
+}
+
 /**
  * Design field callbacks
  */
@@ -391,6 +641,61 @@ function vj_chat_hover_color_field_callback()
     echo '<code style="margin-left: 10px;">' . esc_html($value) . '</code>';
     echo '<p class="description">' . __('Button color on hover. Default: Darker Green (#1ebe5d)', 'vj-chat-order') . '</p>';
 }
+
+function vj_chat_button_style_field_callback()
+{
+    $option = get_option('vj_chat_button_style', 'standard');
+    ?>
+    <select name="vj_chat_button_style" id="vj_chat_button_style">
+        <option value="standard" <?php selected($option, 'standard'); ?>>
+            <?php _e('Standard (Text + Icon)', 'vj-chat-order'); ?>
+        </option>
+        <option value="compact" <?php selected($option, 'compact'); ?>><?php _e('Compact (Icon Only)', 'vj-chat-order'); ?>
+        </option>
+    </select>
+    <p class="description"><?php _e('Choose "Compact" for a round, floating-style button.', 'vj-chat-order'); ?></p>
+    <?php
+}
+
+
+function vj_chat_compact_size_field_callback()
+{
+    $value = get_option('vj_chat_compact_size', 44);
+    echo '<input type="number" name="vj_chat_compact_size" value="' . esc_attr($value) . '" min="30" max="100" style="width: 80px;"> px';
+    echo '<p class="description">' . __('Diameter of the round button. Default: 44px', 'vj-chat-order') . '</p>';
+}
+
+function vj_chat_compact_icon_size_field_callback()
+{
+    $value = get_option('vj_chat_compact_icon_size', 24);
+    echo '<input type="number" name="vj_chat_compact_icon_size" value="' . esc_attr($value) . '" min="10" max="80" style="width: 80px;"> px';
+    echo '<p class="description">' . __('Size of the icon inside the button. Default: 24px', 'vj-chat-order') . '</p>';
+}
+
+function vj_chat_compact_bg_color_field_callback()
+{
+    $value = get_option('vj_chat_compact_bg_color', '#25D366');
+    echo '<input type="color" name="vj_chat_compact_bg_color" value="' . esc_attr($value) . '" style="width: 60px; height: 40px; padding: 0; border: 1px solid #ccc; cursor: pointer;">';
+    echo '<code style="margin-left: 10px;">' . esc_html($value) . '</code>';
+    echo '<p class="description">' . __('Button background color for Compact mode. Default: WhatsApp Green (#25D366)', 'vj-chat-order') . '</p>';
+}
+
+function vj_chat_compact_text_color_field_callback()
+{
+    $value = get_option('vj_chat_compact_text_color', '#ffffff');
+    echo '<input type="color" name="vj_chat_compact_text_color" value="' . esc_attr($value) . '" style="width: 60px; height: 40px; padding: 0; border: 1px solid #ccc; cursor: pointer;">';
+    echo '<code style="margin-left: 10px;">' . esc_html($value) . '</code>';
+    echo '<p class="description">' . __('Icon color for Compact mode. Default: White (#ffffff)', 'vj-chat-order') . '</p>';
+}
+
+function vj_chat_compact_hover_color_field_callback()
+{
+    $value = get_option('vj_chat_compact_hover_color', '#1ebe5d');
+    echo '<input type="color" name="vj_chat_compact_hover_color" value="' . esc_attr($value) . '" style="width: 60px; height: 40px; padding: 0; border: 1px solid #ccc; cursor: pointer;">';
+    echo '<code style="margin-left: 10px;">' . esc_html($value) . '</code>';
+    echo '<p class="description">' . __('Button color on hover for Compact mode. Default: Darker Green (#1ebe5d)', 'vj-chat-order') . '</p>';
+}
+
 
 function vj_chat_border_radius_field_callback()
 {
@@ -562,6 +867,20 @@ function vj_chat_render_settings_page()
                             vj_chat_render_field_row(__('WhatsApp Icon', 'vj-chat-order'), 'vj_chat_icon_url_field_callback');
                             ?>
                         </table>
+
+                        <h3 class="vj-chat-section-title"
+                            style="margin: 30px 0 20px; padding-bottom: 10px; border-bottom: 1px solid #eee;">
+                            <?php esc_html_e('Placement Configuration', 'vj-chat-order'); ?>
+                        </h3>
+
+                        <table class="form-table">
+                            <?php
+                            vj_chat_render_field_row(__('Placement Mode', 'vj-chat-order'), 'vj_chat_placement_mode_callback');
+                            vj_chat_render_field_row(__('Floating Position', 'vj-chat-order'), 'vj_chat_floating_position_callback');
+                            vj_chat_render_field_row(__('Horizontal Offset', 'vj-chat-order'), 'vj_chat_floating_offset_x_callback');
+                            vj_chat_render_field_row(__('Vertical Offset', 'vj-chat-order'), 'vj_chat_floating_offset_y_callback');
+                            ?>
+                        </table>
                     </div>
 
                     <!-- Message Tab -->
@@ -622,6 +941,13 @@ function vj_chat_render_settings_page()
                     <div class="vj-chat-tab-panel" id="tab-design">
                         <table class="form-table">
                             <?php
+                            vj_chat_render_field_row(__('Button Style', 'vj-chat-order'), 'vj_chat_button_style_field_callback');
+                            ?>
+                        </table>
+
+                        <!-- Standard Design Settings -->
+                        <table class="form-table" id="vj-standard-design-table">
+                            <?php
                             vj_chat_render_field_row(__('Background Color', 'vj-chat-order'), 'vj_chat_bg_color_field_callback');
                             vj_chat_render_field_row(__('Text Color', 'vj-chat-order'), 'vj_chat_text_color_field_callback');
                             vj_chat_render_field_row(__('Hover Color', 'vj-chat-order'), 'vj_chat_hover_color_field_callback');
@@ -629,6 +955,17 @@ function vj_chat_render_settings_page()
                             vj_chat_render_field_row(__('Font Size', 'vj-chat-order'), 'vj_chat_font_size_field_callback');
                             vj_chat_render_field_row(__('Margin', 'vj-chat-order'), 'vj_chat_margin_field_callback');
                             vj_chat_render_field_row(__('Padding', 'vj-chat-order'), 'vj_chat_padding_field_callback');
+                            ?>
+                        </table>
+
+                        <!-- Compact Design Settings -->
+                        <table class="form-table" id="vj-compact-design-table" style="display:none;">
+                            <?php
+                            vj_chat_render_field_row(__('Compact Button Size', 'vj-chat-order'), 'vj_chat_compact_size_field_callback');
+                            vj_chat_render_field_row(__('Compact Icon Size', 'vj-chat-order'), 'vj_chat_compact_icon_size_field_callback');
+                            vj_chat_render_field_row(__('Background Color', 'vj-chat-order'), 'vj_chat_compact_bg_color_field_callback');
+                            vj_chat_render_field_row(__('Icon Color', 'vj-chat-order'), 'vj_chat_compact_text_color_field_callback');
+                            vj_chat_render_field_row(__('Hover Color', 'vj-chat-order'), 'vj_chat_compact_hover_color_field_callback');
                             ?>
                         </table>
                     </div>

@@ -18,10 +18,18 @@ if (!current_user_can('activate_plugins')) {
 }
 
 $vj_chat_options = array(
+    // General Settings
     'vj_chat_phone_number',
     'vj_chat_button_text',
     'vj_chat_icon_url',
     'vj_chat_intro_message',
+    // Placement Settings
+    'vj_chat_placement_mode',
+    'vj_chat_floating_position',
+    'vj_chat_floating_offset_x',
+    'vj_chat_floating_offset_y',
+    // Standard Design Settings
+    'vj_chat_button_style',
     'vj_chat_bg_color',
     'vj_chat_text_color',
     'vj_chat_hover_color',
@@ -31,6 +39,13 @@ $vj_chat_options = array(
     'vj_chat_margin_bottom',
     'vj_chat_padding_vertical',
     'vj_chat_padding_horizontal',
+    // Compact Design Settings
+    'vj_chat_compact_size',
+    'vj_chat_compact_icon_size',
+    'vj_chat_compact_bg_color',
+    'vj_chat_compact_text_color',
+    'vj_chat_compact_hover_color',
+    // Message Labels
     'vj_chat_label_product',
     'vj_chat_icon_product',
     'vj_chat_label_quantity',

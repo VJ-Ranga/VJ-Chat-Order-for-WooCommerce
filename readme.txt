@@ -5,7 +5,7 @@ Tags: woocommerce, whatsapp, order, button, chat
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.4.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
@@ -26,6 +26,9 @@ VJ Chat Order for WooCommerce adds a beautiful, customizable button to your prod
 * **Modern Admin UI:** Clean tabbed interface with responsive sidebar preview
 * **Mobile Optimized:** Fully responsive on all devices
 * **Design Customization:** Customize colors, padding, border radius, and more
+* **Separate Compact Mode Settings:** Independent design options for Standard and Compact button styles
+* **Floating Button:** Fixed position button option with customizable placement
+* **Shortcode Support:** Use `[vj_chat_order_button]` to place button anywhere
 
 = Example Message =
 
@@ -102,6 +105,17 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 
 == Changelog ==
 
+= 2.0.0 =
+* NEW: Completely separated design settings for Standard and Compact button modes
+* NEW: Independent color customization for Compact mode (Background, Icon, Hover)
+* NEW: Customizable Compact button size and icon size
+* NEW: Floating button placement with position and offset controls
+* NEW: Shortcode support `[vj_chat_order_button]`
+* Enhancement: Improved admin UI with grouped design settings
+* Enhancement: Live preview updates for all design changes
+* Enhancement: Better code organization and cleanup
+* Fix: Removed stray code artifacts from admin settings
+
 = 1.4.0 =
 * Rename: Plugin officially renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
 * Performance: Optimized uninstall process with direct SQL deletion.
@@ -127,6 +141,9 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 * Live preview feature
 
 == Upgrade Notice ==
+
+= 2.0.0 =
+Major update with separated design settings for Standard and Compact modes. Adds floating button support and shortcode placement.
 
 = 1.4.0 =
 Plugin renamed to "VJ Chat Order for WooCommerce". Includes performance optimization.

@@ -1,5 +1,5 @@
 # VJ Chat Order for WooCommerce
-Stable tag: 1.4.0
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -9,6 +9,15 @@ By **VJ Ranga**
 Adds a customizable **"Order via Chat App"** button to your WooCommerce product pages, allowing customers to send orders details directly to your WhatsApp number.
 
 == Changelog ==
+
+= 2.0.0 =
+* NEW: Completely separated design settings for Standard and Compact button modes
+* NEW: Independent color customization for Compact mode (Background, Icon, Hover)
+* NEW: Customizable Compact button size and icon size
+* NEW: Floating button placement with position and offset controls
+* NEW: Shortcode support `[vj_chat_order_button]`
+* Enhancement: Improved admin UI with grouped design settings
+* Enhancement: Live preview updates for all design changes
 
 = 1.4.0 =
 * Rename: Plugin officially renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
