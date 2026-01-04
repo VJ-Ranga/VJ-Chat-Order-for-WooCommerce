@@ -4,7 +4,7 @@
  *
  * Fired when the plugin is deleted.
  *
- * @package WhatsApp_Order_Button
+ * @package VJ_Chat_Order
  */
 
 // If uninstall not called from WordPress, then exit.
@@ -17,37 +17,37 @@ if (!current_user_can('activate_plugins')) {
     exit;
 }
 
-$wob_options = array(
-    'wob_phone_number',
-    'wob_button_text',
-    'wob_icon_url',
-    'wob_intro_message',
-    'wob_bg_color',
-    'wob_text_color',
-    'wob_hover_color',
-    'wob_border_radius',
-    'wob_font_size',
-    'wob_margin_top',
-    'wob_margin_bottom',
-    'wob_padding_vertical',
-    'wob_padding_horizontal',
-    'wob_label_product',
-    'wob_icon_product',
-    'wob_label_quantity',
-    'wob_icon_quantity',
-    'wob_label_price',
-    'wob_icon_price',
-    'wob_label_total',
-    'wob_icon_total',
-    'wob_label_link',
-    'wob_icon_link'
+$vj_chat_options = array(
+    'vj_chat_phone_number',
+    'vj_chat_button_text',
+    'vj_chat_icon_url',
+    'vj_chat_intro_message',
+    'vj_chat_bg_color',
+    'vj_chat_text_color',
+    'vj_chat_hover_color',
+    'vj_chat_border_radius',
+    'vj_chat_font_size',
+    'vj_chat_margin_top',
+    'vj_chat_margin_bottom',
+    'vj_chat_padding_vertical',
+    'vj_chat_padding_horizontal',
+    'vj_chat_label_product',
+    'vj_chat_icon_product',
+    'vj_chat_label_quantity',
+    'vj_chat_icon_quantity',
+    'vj_chat_label_price',
+    'vj_chat_icon_price',
+    'vj_chat_label_total',
+    'vj_chat_icon_total',
+    'vj_chat_label_link',
+    'vj_chat_icon_link'
 );
 
 // Delete options
-foreach ($wob_options as $option) {
+foreach ($vj_chat_options as $option) {
     delete_option($option);
 }
 
 // Delete user meta (active tab preference) - Using SQL for performance on large sites
 global $wpdb;
-$wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key = 'wob_active_tab'");
+$wpdb->query("DELETE FROM $wpdb->usermeta WHERE meta_key = 'vj_chat_active_tab'");

@@ -4,14 +4,14 @@ jQuery(document).ready(function ($) {
     // Tab Switching Logic
     // ==========================================
     // Check for saved tab (Server-Side)
-    var activeTab = wobAdminData.activeTab || 'general';
+    var activeTab = vjChatAdminData.activeTab || 'general';
 
     // Initialize: Set the saved tab as active
     function initializeTabs() {
-        $('.wob-tab-btn').removeClass('active');
-        $('.wob-tab-panel').removeClass('active');
+        $('.vj-chat-tab-btn').removeClass('active');
+        $('.vj-chat-tab-panel').removeClass('active');
 
-        $('.wob-tab-btn[data-tab="' + activeTab + '"]').addClass('active');
+        $('.vj-chat-tab-btn[data-tab="' + activeTab + '"]').addClass('active');
         $('#tab-' + activeTab).addClass('active');
     }
 
@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
     initializeTabs();
 
     // Handle tab clicks
-    $('.wob-tab-btn').on('click', function (e) {
+    $('.vj-chat-tab-btn').on('click', function (e) {
         e.preventDefault();
 
         var tabId = $(this).data('tab');
@@ -35,10 +35,10 @@ jQuery(document).ready(function ($) {
         initializeTabs();
 
         // Save to server (fire and forget)
-        $.post(wobAdminData.ajaxUrl, {
-            action: 'wob_save_active_tab',
+        $.post(vjChatAdminData.ajaxUrl, {
+            action: 'vj_chat_save_active_tab',
             tab: tabId,
-            nonce: wobAdminData.nonce
+            nonce: vjChatAdminData.nonce
         }).fail(function () {
             console.error('Failed to save tab preference');
         });
@@ -47,10 +47,10 @@ jQuery(document).ready(function ($) {
     // ==========================================
     // Media Uploader Logic
     // ==========================================
-    var defaultIcon = wobAdminData.defaultIcon;
+    var defaultIcon = vjChatAdminData.defaultIcon;
     var mediaUploader;
 
-    $('.wob-upload-icon-btn').on('click', function (e) {
+    $('.vj-chat-upload-icon-btn').on('click', function (e) {
         e.preventDefault();
 
         // If the uploader object has already been created, reopen the dialog
@@ -61,9 +61,9 @@ jQuery(document).ready(function ($) {
 
         // Extend the wp.media object
         mediaUploader = wp.media({
-            title: wobAdminData.uploaderTitle,
+            title: vjChatAdminData.uploaderTitle,
             button: {
-                text: wobAdminData.uploaderButton
+                text: vjChatAdminData.uploaderButton
             },
             multiple: false
         });
@@ -71,8 +71,8 @@ jQuery(document).ready(function ($) {
         // When a file is selected, grab the URL and set it as the text field's value
         mediaUploader.on('select', function () {
             var attachment = mediaUploader.state().get('selection').first().toJSON();
-            $('#wob_icon_url').val(attachment.url);
-            $('.wob-icon-preview img').attr('src', attachment.url);
+            $('#vj_chat_icon_url').val(attachment.url);
+            $('.vj-chat-icon-preview img').attr('src', attachment.url);
         });
 
         // Open the uploader dialog
@@ -80,19 +80,19 @@ jQuery(document).ready(function ($) {
     });
 
     // Reset to Default Icon
-    $('.wob-reset-icon-btn').on('click', function (e) {
+    $('.vj-chat-reset-icon-btn').on('click', function (e) {
         e.preventDefault();
-        $('#wob_icon_url').val('');
-        $('.wob-icon-preview img').attr('src', defaultIcon);
+        $('#vj_chat_icon_url').val('');
+        $('.vj-chat-icon-preview img').attr('src', defaultIcon);
     });
 
     // Valid URL Manual Entry Update
-    $('#wob_icon_url').on('change input', function () {
+    $('#vj_chat_icon_url').on('change input', function () {
         var url = $(this).val();
         if (url.length > 0) {
-            $('.wob-icon-preview img').attr('src', url);
+            $('.vj-chat-icon-preview img').attr('src', url);
         } else {
-            $('.wob-icon-preview img').attr('src', defaultIcon);
+            $('.vj-chat-icon-preview img').attr('src', defaultIcon);
         }
     });
 
@@ -102,20 +102,20 @@ jQuery(document).ready(function ($) {
 
     // Show Toasts with Animation
     setTimeout(function () {
-        $('.wob-toast').addClass('show');
+        $('.vj-chat-toast').addClass('show');
     }, 100);
 
     // Auto Dismiss after 5 seconds
     setTimeout(function () {
-        $('.wob-toast').removeClass('show');
+        $('.vj-chat-toast').removeClass('show');
         setTimeout(function () {
-            $('.wob-toast-container').remove();
+            $('.vj-chat-toast-container').remove();
         }, 300);
     }, 5000);
 
     // Manual Dismiss
-    $('.wob-toast-dismiss').on('click', function () {
-        $(this).closest('.wob-toast').removeClass('show');
+    $('.vj-chat-toast-dismiss').on('click', function () {
+        $(this).closest('.vj-chat-toast').removeClass('show');
     });
 
 });

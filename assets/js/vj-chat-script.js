@@ -3,16 +3,16 @@
  * 
  * Handles price calculation, variant detection, and WhatsApp message construction
  * 
- * @package WhatsApp_Order_Button
+ * @package VJ_Chat_Order
  */
 
 (function ($) {
     'use strict';
 
     $(document).ready(function () {
-        var whatsappButton = $('#whatsapp-order-btn');
+        var whatsappButton = $('#vj-chat-order-btn');
 
-        if (!whatsappButton.length || typeof wobData === 'undefined') {
+        if (!whatsappButton.length || typeof vjChatData === 'undefined') {
             return;
         }
 
@@ -38,7 +38,7 @@
             }
 
             // Parse price - handle custom decimal separators
-            var decimalSeparator = wobData.priceDecimalSeparator || '.';
+            var decimalSeparator = vjChatData.priceDecimalSeparator || '.';
 
             // Escape separator for regex
             var escapedSeparator = decimalSeparator.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
@@ -60,7 +60,7 @@
                 maximumFractionDigits: 2
             });
 
-            var currency = wobData.currencySymbol || '';
+            var currency = vjChatData.currencySymbol || '';
 
             // 3. Get Variants
             var variantText = '';
@@ -93,16 +93,16 @@
             }
 
             // 4. Construct Final Message
-            var introMessage = wobData.introMessage || 'Hello, I\'d like to place an order:';
-            var productName = wobData.productName || 'Product';
-            var productUrl = wobData.productUrl || '';
-            var phoneNumber = wobData.phoneNumber || '';
+            var introMessage = vjChatData.introMessage || 'Hello, I\'d like to place an order:';
+            var productName = vjChatData.productName || 'Product';
+            var productUrl = vjChatData.productUrl || '';
+            var phoneNumber = vjChatData.phoneNumber || '';
 
             // Default fallbacks (if not set in PHP)
-            var icons = wobData.icons || {
+            var icons = vjChatData.icons || {
                 product: '🛒', quantity: '🔢', price: '💰', total: '💵', link: '🔗'
             };
-            var labels = wobData.labels || {
+            var labels = vjChatData.labels || {
                 product: 'Product', quantity: 'Quantity', price: 'Price', total: 'Total', link: 'Link'
             };
 

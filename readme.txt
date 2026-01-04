@@ -1,7 +1,7 @@
-=== WhatsApp Order Button for WooCommerce ===
+=== VJ Chat Order for WooCommerce ===
 Contributors: vjranga
 Donate link: https://www.buymeacoffee.com/vjranga
-Tags: woocommerce, whatsapp, order, button, ecommerce
+Tags: woocommerce, whatsapp, order, button, ecommerce, chat
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -9,11 +9,11 @@ Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Adds a customizable "Order via WhatsApp" button to your WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
+Adds a customizable "Order via Chat App" button to your WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
 
 == Description ==
 
-WhatsApp Order Button for WooCommerce adds a beautiful, customizable button to your product pages that lets customers instantly contact you via WhatsApp with pre-filled order details.
+VJ Chat Order for WooCommerce adds a beautiful, customizable button to your product pages that lets customers instantly contact you via WhatsApp with pre-filled order details.
 
 = Key Features =
 
@@ -55,9 +55,9 @@ Hello, I'd like to place an order:
 
 == Installation ==
 
-1. Upload the `whatsapp-order-button` folder to the `/wp-content/plugins/` directory
+1. Upload the `vj-chat-order` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to **Settings > WhatsApp Order** to configure your number and customize the button
+3. Go to **Settings > VJ Chat Order** to configure your number and customize the button
 4. The button will automatically appear on all WooCommerce product pages
 
 == Frequently Asked Questions ==
@@ -102,6 +102,7 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 == Changelog ==
 
 = 1.3.1 =
+* Rename: Plugin renamed to "VJ Chat Order for WooCommerce" (formerly WhatsApp Order Button).
 * Performance: Optimized uninstall process with direct SQL deletion to prevent timeouts on large sites.
 
 = 1.3.0 =
@@ -126,6 +127,9 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 
 == Upgrade Notice ==
 
+= 1.3.1 =
+Plugin renamed to "VJ Chat Order for WooCommerce". Please re-activate if necessary.
+
 = 1.3.0 =
 This version adds helpful emoji tips and improves the user interface. Safe to update.
 
@@ -134,7 +138,7 @@ Important bug fixes for admin notifications and improved stability. Recommended 
 
 == Privacy Policy ==
 
-WhatsApp Order Button for WooCommerce does not collect, store, or transmit any user data. All order information is sent directly from the customer's device to WhatsApp.
+VJ Chat Order for WooCommerce does not collect, store, or transmit any user data. All order information is sent directly from the customer's device to WhatsApp.
 
 == Support ==
 
