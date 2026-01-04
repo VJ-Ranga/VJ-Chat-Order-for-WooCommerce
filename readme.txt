@@ -8,6 +8,7 @@ Requires PHP: 7.4
 Stable tag: 1.3.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
 
 Adds a customizable "Order via Chat App" button to your WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
 
