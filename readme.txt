@@ -1,7 +1,7 @@
 === VJ Chat Order for WooCommerce ===
 Contributors: vjranga
 Donate link: https://www.buymeacoffee.com/vjranga
-Tags: woocommerce, whatsapp, order, button, ecommerce, chat
+Tags: woocommerce, whatsapp, order, button, chat
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
@@ -10,7 +10,7 @@ License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
 
-Adds a customizable "Order via Chat App" button to your WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
+Adds a "Order via WhatsApp" button to WooCommerce products, allowing customers to send order details directly to your WhatsApp number.
 
 == Description ==
 
