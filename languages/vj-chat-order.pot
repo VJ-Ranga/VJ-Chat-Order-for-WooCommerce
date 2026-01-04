@@ -248,5 +248,5 @@ msgid "Invalid phone number. Please enter 10-15 digits only."
 msgstr ""
 
 #: whatsapp-order-button.php:40
-msgid "WhatsApp Order Button requires WooCommerce to be installed and activated."
+msgid "VJ Chat Order requires WooCommerce to be installed and activated."
 msgstr ""

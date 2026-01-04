@@ -1,5 +1,5 @@
 /**
- * WhatsApp Order Button Script
+ * VJ Chat Order Script
  * 
  * Handles price calculation, variant detection, and WhatsApp message construction
  * 
