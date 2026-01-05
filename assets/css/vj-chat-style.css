@@ -134,3 +134,20 @@
         max-width: none !important;
     }
 }
+
+/* ===== Position Fixes for Theme Compatibility ===== */
+
+/* When button is inside product_meta (Before Category position) */
+.product_meta .vj-chat-button {
+    display: flex !important;
+    width: fit-content;
+    margin-bottom: 15px;
+}
+
+/* Ensure button appears on its own row in product meta */
+.product_meta .vj-chat-button+.posted_in,
+.product_meta .vj-chat-button+.tagged_as,
+.product_meta .vj-chat-button+.sku_wrapper {
+    display: block;
+    clear: both;
+}

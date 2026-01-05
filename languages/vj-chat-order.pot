@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: VJ Chat Order 2.0.0\n"
+"Project-Id-Version: VJ Chat Order 2.1.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-01-03 12:00+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -232,15 +232,15 @@ msgid "Full Button"
 msgstr ""
 
 #: inc/admin-settings.php:643
-msgid "Sticky Bar (Compact)"
+msgid "Compact Button"
 msgstr ""
 
 #: inc/admin-settings.php:656
-msgid "Full button shows on product page"
+msgid "Standard: Full button with text + icon"
 msgstr ""
 
 #: inc/admin-settings.php:657
-msgid "Compact icon shows in sticky bar"
+msgid "Compact: Round icon button (great for floating)"
 msgstr ""
 
 #: inc/admin-settings.php:267

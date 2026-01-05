@@ -5,7 +5,7 @@ Tags: woocommerce, whatsapp, order, button, chat
 Requires at least: 5.8
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
@@ -104,6 +104,13 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 6. Example generated WhatsApp message
 
 == Changelog ==
+
+= 2.1.0 =
+* NEW: Improved button position setting with reliable theme-specific WooCommerce hooks
+* NEW: "After Add to Cart Button" position now works correctly with Astra and all themes
+* NEW: CSS fixes for "Before Category" position to display button on its own line
+* Enhancement: Changed hook registration from plugins_loaded to init for better compatibility
+* Fix: Button no longer appears inline with category text in Astra theme
 
 = 2.0.0 =
 * NEW: Completely separated design settings for Standard and Compact button modes

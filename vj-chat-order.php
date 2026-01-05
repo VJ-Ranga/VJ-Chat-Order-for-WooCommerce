@@ -3,7 +3,7 @@
  * Plugin Name: VJ Chat Order for WooCommerce
  * Plugin URI: https://github.com/VJ-Ranga/VJ-Chat-Order-for-WooCommerce
  * Description: Adds a customizable "Order via Chat App" button to WooCommerce product pages, allowing customers to send order details directly to your WhatsApp number.
- * Version: 2.0.0
+ * Version: 2.1.0
  * Author: VJ Ranga
  * Author URI: https://vjranga.com/
  * Text Domain: vj-chat-order
@@ -24,7 +24,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define plugin constants
-define('VJ_CHAT_VERSION', '2.0.0');
+define('VJ_CHAT_VERSION', '2.1.0');
 define('VJ_CHAT_PLUGIN_DIR', plugin_dir_path(__FILE__));
 define('VJ_CHAT_PLUGIN_URL', plugin_dir_url(__FILE__));
 
@@ -418,14 +418,24 @@ function vj_chat_init()
 
     // Placement Logic
     $mode = get_option('vj_chat_placement_mode', 'auto');
+    $priority = absint(get_option('vj_chat_button_priority', 35));
 
     if ($mode === 'auto') {
-        // Auto: Position 30 (After Add to Cart form usually)
-        add_action('woocommerce_single_product_summary', 'vj_chat_render_button', 30);
+        // Use specific hooks for reliable positioning across all themes
+        if ($priority <= 25) {
+            // Before Meta: Use woocommerce_product_meta_start (appears right before Category)
+            add_action('woocommerce_product_meta_start', 'vj_chat_render_button', 10);
+        } elseif ($priority <= 35) {
+            // After Cart: Use woocommerce_after_add_to_cart_form (appears right after Add to Cart button)
+            add_action('woocommerce_after_add_to_cart_form', 'vj_chat_render_button', 10);
+        } else {
+            // After Meta: Use woocommerce_product_meta_end (appears after Category/Tags)
+            add_action('woocommerce_product_meta_end', 'vj_chat_render_button', 10);
+        }
     } elseif ($mode === 'floating') {
         // Floating: Add to footer (will be fixed via CSS)
         add_action('wp_footer', 'vj_chat_render_button');
     }
     // 'shortcode' mode: No hook added.
 }
-add_action('plugins_loaded', 'vj_chat_init');
+add_action('init', 'vj_chat_init');

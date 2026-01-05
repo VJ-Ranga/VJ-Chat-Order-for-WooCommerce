@@ -113,6 +113,11 @@ function vj_chat_register_settings_init()
         'default' => 'auto'
     ));
 
+    register_setting('vj_chat_settings_group', 'vj_chat_button_priority', array(
+        'sanitize_callback' => 'absint',
+        'default' => 35
+    ));
+
     register_setting('vj_chat_settings_group', 'vj_chat_floating_position', array(
         'sanitize_callback' => 'sanitize_text_field',
         'default' => 'bottom-right'
@@ -508,8 +513,14 @@ function vj_chat_placement_mode_callback()
                 var mode = $('#vj_chat_placement_mode').val();
                 if (mode === 'floating') {
                     $('tr:has(#vj_chat_floating_position), tr:has(#vj_chat_floating_offset_x), tr:has(#vj_chat_floating_offset_y)').show();
-                } else {
+                    $('tr:has(#vj_chat_button_priority)').hide(); // Not relevant for floating
+                } else if (mode === 'auto') {
                     $('tr:has(#vj_chat_floating_position), tr:has(#vj_chat_floating_offset_x), tr:has(#vj_chat_floating_offset_y)').hide();
+                    $('tr:has(#vj_chat_button_priority)').show(); // Only relevant for auto
+                } else {
+                    // Shortcode mode - hide all placement options
+                    $('tr:has(#vj_chat_floating_position), tr:has(#vj_chat_floating_offset_x), tr:has(#vj_chat_floating_offset_y)').hide();
+                    $('tr:has(#vj_chat_button_priority)').hide();
                 }
             }
 
@@ -613,6 +624,23 @@ function vj_chat_floating_offset_y_callback()
     $val = get_option('vj_chat_floating_offset_y', 20);
     echo '<input type="number" name="vj_chat_floating_offset_y" id="vj_chat_floating_offset_y" value="' . esc_attr($val) . '" min="0" max="500" style="width: 70px;"> px';
     echo '<p class="description">' . __('Distance from the top or bottom edge (depending on position). Increase this to move the button up/down.', 'vj-chat-order') . '</p>';
+}
+
+function vj_chat_button_priority_callback()
+{
+    $option = get_option('vj_chat_button_priority', 35);
+    ?>
+    <select name="vj_chat_button_priority" id="vj_chat_button_priority">
+        <option value="25" <?php selected($option, 25); ?>>
+            <?php _e('Before Category (inside meta section)', 'vj-chat-order'); ?></option>
+        <option value="35" <?php selected($option, 35); ?>>
+            <?php _e('After Add to Cart Button - Recommended', 'vj-chat-order'); ?></option>
+        <option value="45" <?php selected($option, 45); ?>><?php _e('After Category/Tags', 'vj-chat-order'); ?></option>
+    </select>
+    <p class="description">
+        <?php _e('Choose where the button appears on product pages. Works reliably with Astra and other themes.', 'vj-chat-order'); ?>
+    </p>
+    <?php
 }
 
 /**
@@ -876,6 +904,7 @@ function vj_chat_render_settings_page()
                         <table class="form-table">
                             <?php
                             vj_chat_render_field_row(__('Placement Mode', 'vj-chat-order'), 'vj_chat_placement_mode_callback');
+                            vj_chat_render_field_row(__('Button Position', 'vj-chat-order'), 'vj_chat_button_priority_callback');
                             vj_chat_render_field_row(__('Floating Position', 'vj-chat-order'), 'vj_chat_floating_position_callback');
                             vj_chat_render_field_row(__('Horizontal Offset', 'vj-chat-order'), 'vj_chat_floating_offset_x_callback');
                             vj_chat_render_field_row(__('Vertical Offset', 'vj-chat-order'), 'vj_chat_floating_offset_y_callback');
@@ -1011,7 +1040,7 @@ function vj_chat_render_settings_page()
 
                     <!-- Compact Icon Preview -->
                     <div class="vj-chat-preview-section">
-                        <div class="vj-chat-preview-label"><?php esc_html_e('Sticky Bar (Compact)', 'vj-chat-order'); ?>
+                        <div class="vj-chat-preview-label"><?php esc_html_e('Compact Button', 'vj-chat-order'); ?>
                         </div>
                         <div class="vj-chat-preview-box sticky-preview">
                             <a href="#" onclick="return false;" class="vj-chat-preview-icon-btn" style="
@@ -1024,8 +1053,8 @@ function vj_chat_render_settings_page()
                 </div>
 
                 <p class="description" style="margin-top: 16px; text-align: center; font-size: 11px;">
-                    <?php _e('Full button shows on product page', 'vj-chat-order'); ?><br>
-                    <?php _e('Compact icon shows in sticky bar', 'vj-chat-order'); ?>
+                    <?php _e('Standard: Full button with text + icon', 'vj-chat-order'); ?><br>
+                    <?php _e('Compact: Round icon button (great for floating)', 'vj-chat-order'); ?>
                 </p>
             </div>
         </div>

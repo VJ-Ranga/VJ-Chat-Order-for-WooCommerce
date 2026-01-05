@@ -25,6 +25,7 @@ $vj_chat_options = array(
     'vj_chat_intro_message',
     // Placement Settings
     'vj_chat_placement_mode',
+    'vj_chat_button_priority',
     'vj_chat_floating_position',
     'vj_chat_floating_offset_x',
     'vj_chat_floating_offset_y',

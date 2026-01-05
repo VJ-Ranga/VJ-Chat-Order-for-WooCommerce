@@ -1,5 +1,5 @@
 # VJ Chat Order for WooCommerce
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -9,6 +9,12 @@ By **VJ Ranga**
 Adds a customizable **"Order via Chat App"** button to your WooCommerce product pages, allowing customers to send orders details directly to your WhatsApp number.
 
 == Changelog ==
+
+= 2.1.0 =
+* NEW: Improved button position setting with reliable WooCommerce hooks
+* NEW: "After Add to Cart Button" position works correctly with Astra and all themes
+* NEW: CSS fixes for proper button display in product meta section
+* Fix: Button no longer appears inline with category text
 
 = 2.0.0 =
 * NEW: Completely separated design settings for Standard and Compact button modes
