@@ -79,9 +79,9 @@ Hello, I'd like to place an order:
 
 ## 📸 Screenshots
 
-### 1. Frontend Button
-*How the button appears on your product page.*
-![Frontend Button](assets/screenshot-1.png)
+### 1. Standard Button (Frontend)
+*How the standard button appears on your product page.*
+![Standard Button](assets/screenshot-1.png)
 
 ### 2. Live Preview
 *Real-time preview in the admin sidebar.*
@@ -91,17 +91,29 @@ Hello, I'd like to place an order:
 *Configure your number and button text.*
 ![General Settings](assets/screenshot-3.png)
 
-### 4. Message Customization
+### 4. Placement Configuration - Floating Mode
+*Configure floating button position and offsets.*
+![Placement Configuration](assets/screenshot-4.png)
+
+### 5. Message Customization
 *Define the message content, change labels, and choose emojis.*
-![Message Customization](assets/screenshot-4.png)
+![Message Customization](assets/screenshot-5.png)
 
-### 5. Design Settings
-*Style the button to match your brand.*
-![Design Settings](assets/screenshot-5.png)
+### 6. Design Settings - Standard Button
+*Style the standard button to match your brand.*
+![Design Standard](assets/screenshot-6.png)
 
-### 6. Example Message
+### 7. Design Settings - Compact Button
+*Configure the compact/floating button design.*
+![Design Compact](assets/screenshot-7.png)
+
+### 8. Example WhatsApp Message
 *What your customers will send to you.*
-![WhatsApp Message](assets/screenshot-6.png)
+![WhatsApp Message](assets/screenshot-8.png)
+
+### 9. Compact Button (Frontend)
+*How the compact button appears on your product page.*
+![Compact Button](assets/screenshot-9.png)
 
 ## 🛠️ Installation
 
