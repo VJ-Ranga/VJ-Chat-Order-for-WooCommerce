@@ -96,12 +96,15 @@ Yes, you can upload your own icon or use emojis. Use Win + . (Windows) or Cmd + 
 
 == Screenshots ==
 
-1. Frontend button on product page
-2. Admin sidebar live preview
+1. Standard button on product page (frontend)
+2. Live Preview in admin sidebar
 3. General settings tab
-4. Message customization tab
-5. Design settings tab
-6. Example generated WhatsApp message
+4. Placement Configuration - Floating mode
+5. Message customization tab
+6. Design settings - Standard button
+7. Design settings - Compact button
+8. Example WhatsApp message output
+9. Compact button on product page (frontend)
 
 == Changelog ==
 
